@@ -9,6 +9,8 @@ ZSH_DISABLE_COMPFIX="true"
 
 source /Users/denys.sizomin/antigen.zsh
 
+source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+
 antigen use oh-my-zsh
 
 antigen bundle git
