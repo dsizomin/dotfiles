@@ -7,7 +7,7 @@ fi
 
 ZSH_DISABLE_COMPFIX="true"
 
-source /opt/homebrew/share/antigen/antigen.zsh
+source /Users/denys.sizomin/antigen.zsh
 
 antigen use oh-my-zsh
 
@@ -19,13 +19,13 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 antigen bundle zsh-users/zsh-history-substring-search
 
+antigen bundle thefuck
+
 # antigen bundle mafredri/zsh-async
 
 antigen theme romkatv/powerlevel10k
 
 antigen apply
-
-eval $(thefuck --alias)
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
