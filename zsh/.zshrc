@@ -33,3 +33,7 @@ antigen apply
 
 # alias cls='colorls'
 
+[ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
+
+export EDITOR=vim
+
