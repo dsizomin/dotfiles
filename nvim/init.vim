@@ -24,6 +24,7 @@ call plug#begin()
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver']
+source ~/coc.nvim/doc/coc-example-config.vim
 
 colorscheme dracula
 
