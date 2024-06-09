@@ -21,10 +21,14 @@ set ttyfast                 " Speed up scrolling in Vim
 call plug#begin()
  Plug 'dracula/vim'
  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+ Plug 'nvim-tree/nvim-web-devicons'
+ Plug 'nvim-tree/nvim-tree.lua'
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver']
 source ~/coc.nvim/doc/coc-example-config.vim
 
 colorscheme dracula
+
+lua require'nvim-tree'.setup {}
 
