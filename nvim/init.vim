@@ -23,6 +23,10 @@ call plug#begin()
  Plug 'neoclide/coc.nvim', {'branch': 'release'}
  Plug 'nvim-tree/nvim-web-devicons'
  Plug 'nvim-tree/nvim-tree.lua'
+ Plug 'romgrk/barbar.nvim'
+ Plug 'nvim-lua/plenary.nvim'
+ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.6' }
+ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 let g:coc_global_extensions = ['coc-tsserver']
@@ -32,3 +36,16 @@ colorscheme dracula
 
 lua require'nvim-tree'.setup {}
 
+lua require'nvim-treesitter.configs'.setup {
+ \ ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "typescript", "tsx" },
+ \ auto_install = true,
+ \ highlight = {
+ \  enable = true,
+ \ }
+\ }
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
