@@ -33,6 +33,9 @@ vim.call('plug#begin')
 vim.call('plug#end')
 
 vim.g.coc_global_extensions={'coc-tsserver', 'coc-json', 'coc-eslint'}
+vim.g.coc_user_config = {
+  ['eslint.autoFixOnSave'] = true
+}
 
 vim.cmd [[ source ~/coc.nvim/doc/coc-example-config.vim ]]
 vim.cmd [[ colorscheme dracula ]]
