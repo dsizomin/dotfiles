@@ -32,7 +32,7 @@ vim.call('plug#begin')
   Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 vim.call('plug#end')
 
-vim.g.coc_global_extensions={'coc-tsserver'}
+vim.g.coc_global_extensions={'coc-tsserver', 'coc-json', 'coc-eslint'}
 
 vim.cmd [[ source ~/coc.nvim/doc/coc-example-config.vim ]]
 vim.cmd [[ colorscheme dracula ]]
