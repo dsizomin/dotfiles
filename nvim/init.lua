@@ -20,6 +20,13 @@ vim.cmd [[
   set ttyfast                 " Speed up scrolling in Vim
 ]]
 
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
   Plug('dracula/vim')
@@ -42,18 +49,7 @@ vim.g.coc_user_config = {
 vim.cmd [[ source ~/coc.nvim/doc/coc-example-config.vim ]]
 vim.cmd [[ colorscheme dracula ]]
 
-require("bufferline").setup({
-  icons = {
-    gitsigns = {
-      added = {enabled = true, icon = '+'},
-      changed = {enabled = true, icon = '~'},
-      deleted = {enabled = true, icon = '-'},
-    },
-    diagnostics = {
-      [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ff'},
-      [vim.diagnostic.severity.WARN] = {enabled = true},
-    }
-  },
+require("barbar").setup({
   sidebar_filetypes = {
     NvimTree = true,
   }
@@ -67,7 +63,11 @@ require('lualine').setup {
 
 require('gitsigns').setup()
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  update_focused_file = {
+    enable = true
+  },
+})
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "typescript", "tsx" },
