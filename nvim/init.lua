@@ -12,7 +12,7 @@ vim.cmd [[
   set autoindent              " indent a new line the same amount as the line just typed
   set number                  " add line numbers
   set wildmode=longest,list   " get bash-like tab completions
-  filetype plugin indent on   "allow auto-indenting depending on file type
+  filetype plugin indent on   " allow auto-indenting depending on file type
   syntax on                   " syntax highlighting
   set mouse=a                 " enable mouse click
   set clipboard=unnamedplus   " using system clipboard
@@ -26,10 +26,12 @@ vim.call('plug#begin')
   Plug('neoclide/coc.nvim', { branch = 'release' })
   Plug('nvim-tree/nvim-web-devicons')
   Plug('nvim-tree/nvim-tree.lua')
+  Plug('lewis6991/gitsigns.nvim')
   Plug('romgrk/barbar.nvim')
   Plug('nvim-lua/plenary.nvim')
   Plug('nvim-telescope/telescope.nvim', { tag = '0.1.6' })
   Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
+  Plug('nvim-lualine/lualine.nvim')
 vim.call('plug#end')
 
 vim.g.coc_global_extensions={'coc-tsserver', 'coc-json', 'coc-eslint'}
@@ -39,6 +41,31 @@ vim.g.coc_user_config = {
 
 vim.cmd [[ source ~/coc.nvim/doc/coc-example-config.vim ]]
 vim.cmd [[ colorscheme dracula ]]
+
+require("bufferline").setup({
+  icons = {
+    gitsigns = {
+      added = {enabled = true, icon = '+'},
+      changed = {enabled = true, icon = '~'},
+      deleted = {enabled = true, icon = '-'},
+    },
+    diagnostics = {
+      [vim.diagnostic.severity.ERROR] = {enabled = true, icon = 'ff'},
+      [vim.diagnostic.severity.WARN] = {enabled = true},
+    }
+  },
+  sidebar_filetypes = {
+    NvimTree = true,
+  }
+})
+
+require('lualine').setup {
+  options = {
+    theme = 'dracula'
+  }
+}
+
+require('gitsigns').setup()
 
 require("nvim-tree").setup()
 
