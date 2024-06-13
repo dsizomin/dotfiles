@@ -30,13 +30,15 @@ vim.opt.termguicolors = true
 local Plug = vim.fn['plug#']
 vim.call('plug#begin')
   Plug('dracula/vim')
+  Plug('windwp/nvim-autopairs')
+  Plug('lukas-reineke/indent-blankline.nvim')
   Plug('neoclide/coc.nvim', { branch = 'release' })
   Plug('nvim-tree/nvim-web-devicons')
   Plug('nvim-tree/nvim-tree.lua')
   Plug('lewis6991/gitsigns.nvim')
   Plug('romgrk/barbar.nvim')
   Plug('nvim-lua/plenary.nvim')
-  Plug('nvim-telescope/telescope.nvim', { tag = '0.1.6' })
+  Plug('nvim-telescope/telescope.nvim')
   Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
   Plug('nvim-lualine/lualine.nvim')
 vim.call('plug#end')
@@ -48,6 +50,10 @@ vim.g.coc_user_config = {
 
 vim.cmd [[ source ~/coc.nvim/doc/coc-example-config.vim ]]
 vim.cmd [[ colorscheme dracula ]]
+
+require("ibl").setup()
+
+require('nvim-autopairs').setup()
 
 require("barbar").setup({
   sidebar_filetypes = {
