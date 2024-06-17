@@ -56,9 +56,9 @@ require("ibl").setup()
 require('nvim-autopairs').setup()
 
 require("barbar").setup({
-  sidebar_filetypes = {
-    NvimTree = true,
-  }
+  -- sidebar_filetypes = {
+  --   NvimTree = true,
+  -- }
 })
 
 require('lualine').setup {
