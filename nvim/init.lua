@@ -58,9 +58,12 @@ require('nvim-autopairs').setup({
 })
 
 require("barbar").setup({
-  -- sidebar_filetypes = {
-  --   NvimTree = true,
-  -- }
+  sidebar_filetypes = {
+    NvimTree = true,
+  },
+  view = {
+    width = 60
+  }
 })
 
 require('lualine').setup {
