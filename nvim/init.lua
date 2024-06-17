@@ -53,7 +53,9 @@ vim.cmd [[ colorscheme dracula ]]
 
 require("ibl").setup()
 
-require('nvim-autopairs').setup()
+require('nvim-autopairs').setup({
+  map_cr = false
+})
 
 require("barbar").setup({
   -- sidebar_filetypes = {
