@@ -41,6 +41,7 @@ vim.call('plug#begin')
   Plug('nvim-telescope/telescope.nvim')
   Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
   Plug('nvim-lualine/lualine.nvim')
+  Plug('numToStr/Comment.nvim')
 vim.call('plug#end')
 
 vim.g.coc_global_extensions={'coc-tsserver', 'coc-json', 'coc-eslint'}
@@ -90,6 +91,8 @@ require("nvim-treesitter.configs").setup({
    enable = true,
   }
 })
+
+require('Comment').setup()
 
 vim.cmd [[
   " Find files using Telescope command-line sugar.
