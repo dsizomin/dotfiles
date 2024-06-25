@@ -42,6 +42,7 @@ vim.call('plug#begin')
   Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
   Plug('nvim-lualine/lualine.nvim')
   Plug('numToStr/Comment.nvim')
+  Plug('github/copilot.vim')
 vim.call('plug#end')
 
 vim.g.coc_global_extensions={'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-snippets'}
