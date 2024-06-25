@@ -44,6 +44,7 @@ vim.call('plug#begin')
   Plug('numToStr/Comment.nvim')
   Plug('github/copilot.vim')
   Plug('sindrets/diffview.nvim')
+  Plug('rmagatti/auto-session')
 vim.call('plug#end')
 
 vim.g.coc_global_extensions={'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-snippets'}
@@ -116,6 +117,8 @@ require("nvim-treesitter.configs").setup({
 require('Comment').setup()
 
 require("diffview").setup()
+
+require('auto-session').setup()
 
 vim.cmd [[
   " Find files using Telescope command-line sugar.
