@@ -43,6 +43,7 @@ vim.call('plug#begin')
   Plug('nvim-lualine/lualine.nvim')
   Plug('numToStr/Comment.nvim')
   Plug('github/copilot.vim')
+  Plug('sindrets/diffview.nvim')
 vim.call('plug#end')
 
 vim.g.coc_global_extensions={'coc-tsserver', 'coc-json', 'coc-eslint', 'coc-snippets'}
@@ -113,6 +114,8 @@ require("nvim-treesitter.configs").setup({
 })
 
 require('Comment').setup()
+
+require("diffview").setup()
 
 vim.cmd [[
   " Find files using Telescope command-line sugar.
