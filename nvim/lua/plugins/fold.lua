@@ -41,16 +41,48 @@ return {
         local builtin = require("statuscol.builtin")
         require("statuscol").setup({
           relculright = true,
+          ft_ignore = {
+            "man",
+            "starter",
+            "TelescopePrompt",
+            "dapui_scopes",
+            "dapui_breakpoints",
+            "dapui_stacks",
+            "dapui_watches",
+            "dashboard",
+            "NvimTree",
+          },
           segments = {
-            { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-            { text = { "%s" }, click = "v:lua.ScSa" },
-            { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+            -- Diagnostics
+            {
+              sign = { name = { "Diagnostic" }, maxwidth = 2, auto = false },
+              click = "v:lua.ScSa",
+            },
+            -- Folds
+            {
+              text = { builtin.foldfunc },
+            },
+            -- Relative Line Numbers
+            {
+              text = { builtin.lnumfunc },
+              condition = { true, builtin.not_empty },
+            },
+            -- Gitsigns
+            {
+              sign = {
+                namespace = { "gitsigns" },
+                maxwidth = 1,
+                colwidth = 1,
+                wrap = true,
+              },
+            },
           },
         })
       end,
     } 
   },
   init = function()
+    vim.opt.signcolumn = "yes"
     vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
     vim.o.foldcolumn = '1'
     vim.o.foldlevel = 99

@@ -12,4 +12,4 @@ return {
       hi! link FoldColumn DraculaBoundary
     ]]
   end,
-  }
+}
