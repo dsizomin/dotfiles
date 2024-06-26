@@ -28,3 +28,15 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 require('config.lazy')
+
+vim.cmd [[
+  hi! link BufferCurrent DraculaFgBold
+  hi! link BufferVisible DraculaFgBold
+
+  hi! link BufferVisibleMod DraculaOrangeBold
+  hi! link BufferCurrentMod DraculaOrangeBold
+  hi! link BufferInactiveMod DraculaOrange
+  
+  hi! link FoldColumn DraculaBoundary
+  hi! link MoreMsg DraculaCyan
+]]
