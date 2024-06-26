@@ -33,6 +33,7 @@ return {
     'neoclide/coc.nvim',
     {
       "luukvbaal/statuscol.nvim",
+      commit = "2cdad94d0bdd7e56b9333d4e215bf5b05ba5ec1",
       dependencies = {
         'lewis6991/gitsigns.nvim',
       },
