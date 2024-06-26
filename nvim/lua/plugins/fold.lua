@@ -31,58 +31,57 @@ return {
   dependencies = {
     'kevinhwang91/promise-async',
     'neoclide/coc.nvim',
-    {
-      "luukvbaal/statuscol.nvim",
-      commit = "2cdad94d0bdd7e56b9333d4e215bf5b05ba5ec1",
-      dependencies = {
-        'lewis6991/gitsigns.nvim',
-      },
-      config = function()
-        local builtin = require("statuscol.builtin")
-        require("statuscol").setup({
-          relculright = true,
-          ft_ignore = {
-            "man",
-            "starter",
-            "TelescopePrompt",
-            "dapui_scopes",
-            "dapui_breakpoints",
-            "dapui_stacks",
-            "dapui_watches",
-            "dashboard",
-            "NvimTree",
-          },
-          segments = {
-            -- Diagnostics
-            {
-              sign = { name = { "Diagnostic" }, maxwidth = 2, auto = false },
-              click = "v:lua.ScSa",
-            },
-            -- Folds
-            {
-              text = { builtin.foldfunc },
-            },
-            -- Relative Line Numbers
-            {
-              text = { builtin.lnumfunc },
-              condition = { true, builtin.not_empty },
-            },
-            -- Gitsigns
-            {
-              sign = {
-                namespace = { "gitsigns" },
-                maxwidth = 1,
-                colwidth = 1,
-                wrap = true,
-              },
-            },
-          },
-        })
-      end,
-    } 
+    -- {
+    --   "luukvbaal/statuscol.nvim",
+    --   commit = "2cdad94d0bdd7e56b9333d4e215bf5b05ba5ec1",
+    --   dependencies = {
+    --     'lewis6991/gitsigns.nvim',
+    --   },
+    --   config = function()
+    --     local builtin = require("statuscol.builtin")
+    --     require("statuscol").setup({
+    --       relculright = true,
+    --       ft_ignore = {
+    --         "man",
+    --         "starter",
+    --         "TelescopePrompt",
+    --         "dapui_scopes",
+    --         "dapui_breakpoints",
+    --         "dapui_stacks",
+    --         "dapui_watches",
+    --         "dashboard",
+    --         "NvimTree",
+    --       },
+    --       segments = {
+    --         -- Diagnostics
+    --         {
+    --           sign = { name = { "diagnostic" }, maxwidth = 2, auto = false },
+    --           click = "v:lua.ScSa",
+    --         },
+    --         -- Folds
+    --         {
+    --           text = { builtin.foldfunc },
+    --         },
+    --         -- Relative Line Numbers
+    --         {
+    --           text = { builtin.lnumfunc },
+    --           condition = { true, builtin.not_empty },
+    --         },
+    --         -- Gitsigns
+    --         {
+    --           sign = {
+    --             namespace = { "gitsigns" },
+    --             maxwidth = 1,
+    --             colwidth = 1,
+    --             wrap = true,
+    --           },
+    --         },
+    --       },
+    --     })
+    --   end,
+    -- } 
   },
   init = function()
-    vim.opt.signcolumn = "yes"
     vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
     vim.o.foldcolumn = '1'
     vim.o.foldlevel = 99
