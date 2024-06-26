@@ -9,6 +9,7 @@ return {
       hi! link BufferVisibleMod DraculaOrange
       hi! link BufferCurrentMod DraculaOrange
       hi! link BufferInactiveMod DraculaOrange
+      hi! link FoldColumn DraculaBoundary
     ]]
   end,
   }

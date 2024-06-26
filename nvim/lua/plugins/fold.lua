@@ -30,15 +30,35 @@ return {
   'kevinhwang91/nvim-ufo',
   dependencies = {
     'kevinhwang91/promise-async',
-    'neoclide/coc.nvim'
+    'neoclide/coc.nvim',
+    {
+      "luukvbaal/statuscol.nvim",
+      dependencies = {
+        'lewis6991/gitsigns.nvim',
+      },
+      config = function()
+        local builtin = require("statuscol.builtin")
+        require("statuscol").setup({
+          relculright = true,
+          segments = {
+            { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+            { text = { "%s" }, click = "v:lua.ScSa" },
+            { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+          },
+        })
+      end,
+    } 
   },
-  config = function()
-    require('ufo').setup({
-      fold_virt_text_handler = handler
-    })
+  init = function()
+    vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
     vim.o.foldcolumn = '1'
     vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
+  end,
+  config = function()
+    require('ufo').setup({
+      fold_virt_text_handler = handler
+    })
   end,
 }
