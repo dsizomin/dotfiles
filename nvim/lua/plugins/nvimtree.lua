@@ -8,6 +8,9 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
+  keys = {
+    { "<leader>nt", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree"},
+  },
   config = function()
     require("nvim-tree").setup {
       update_focused_file = {
@@ -40,9 +43,5 @@ return {
         end,
       },
     }
-
-    vim.cmd[[
-      nnoremap <leader>nt <cmd>NvimTreeToggle<cr>
-    ]]
   end,
 }
