@@ -1,3 +1,15 @@
 {
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
+  "Lua.diagnostics.globals": ["vim"],
+  "Lua.format.enable": true,
+  "Lua.format.defaultConfig": {
+    "indent": 2,
+    "lineWidth": 120,
+    "quote": "single",
+    "semi": false,
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "parser": "lua-fmt"
+  }
 }
