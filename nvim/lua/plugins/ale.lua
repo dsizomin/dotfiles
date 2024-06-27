@@ -10,7 +10,7 @@ return {
       typescript = {'prettier', 'eslint'},
     }
 
-    vim.g.ale.fix_on_save = 1
+    vim.g.ale_fix_on_save = 1
 
     vim.cmd [[
       sign define DiagnosticSignError text= texthl=DiagnosticSignError
