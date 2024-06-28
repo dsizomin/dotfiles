@@ -1,7 +1,6 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    lazy = true,
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
     },
@@ -12,7 +11,6 @@ return {
   },
   {
     'nvimdev/lspsaga.nvim',
-    lazy = true,
      dependencies = {
       'nvim-treesitter/nvim-treesitter', -- optional
       'nvim-tree/nvim-web-devicons',     -- optional
