@@ -1,4 +1,15 @@
 return {
+  {
+    'nvimtools/none-ls.nvim',
+    lazy = true,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      "nvimtools/none-ls-extras.nvim",
+    },
+    config = function()
+      require('null-ls').setup()
+    end
+  }
   -- "mfussenegger/nvim-lint",
   -- config = function()
   --   local lint = require("lint")

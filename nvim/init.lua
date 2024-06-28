@@ -45,6 +45,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local function setup_lsp(preset)
   local lspconfig = require('lspconfig')
+  local null_ls = require("null-ls")
 
   require('mason-lspconfig').setup {
     automatic_installation = true,
@@ -56,6 +57,12 @@ local function setup_lsp(preset)
     lspconfig.tsserver.setup {
       capabilities = capabilities,
     }
+
+    null_ls.register({
+      require("none-ls.formatting.eslint"),
+      require("none-ls.diagnostics.eslint"),
+      require("none-ls.code_actions.eslint"),
+    })
   elseif preset =='ts:uber-web' then
     lspconfig.tsserver.setup {
       capabilities = capabilities,
@@ -63,6 +70,12 @@ local function setup_lsp(preset)
         path = (vim.fn.getcwd()..'/.yarn/sdks/typescript/lib')
       }
     }
+
+    null_ls.register({
+      require("none-ls.formatting.eslint"),
+      require("none-ls.diagnostics.eslint"),
+      require("none-ls.code_actions.eslint"),
+    })
   elseif preset == 'lua' then
     lspconfig.lua_ls.setup {
       capabilities = capabilities,
