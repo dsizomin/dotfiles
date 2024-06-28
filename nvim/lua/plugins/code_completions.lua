@@ -1,40 +1,23 @@
 return {
   {
-  "hrsh7th/nvim-cmp",
+    'L3MON4D3/LuaSnip',
+    build = "make install_jsregexp"
+  },
+  {
+    "hrsh7th/nvim-cmp",
     -- load cmp on InsertEnter
     -- event = "InsertEnter",
     -- these dependencies will only be loaded when cmp loads
     -- dependencies are always lazy-loaded unless specified otherwise
     dependencies = {
+      'neovim/nvim-lspconfig',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'onsails/lspkind.nvim',
       'saadparwaiz1/cmp_luasnip',
-      {
-        'L3MON4D3/LuaSnip',
-        build = "make install_jsregexp"
-      },
-      {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-          {
-            "williamboman/mason-lspconfig.nvim",
-            dependencies = {
-              {
-                "williamboman/mason.nvim",
-                config = function()
-                  require("mason").setup()
-                  end,
-                },
-              },
-            config = function()
-              require("mason-lspconfig").setup()
-            end,
-          },
-        }
-      },
+      'L3MON4D3/LuaSnip',
     },
     config = function()
       -- Set up nvim-cmp.
@@ -116,9 +99,6 @@ return {
       -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
       --   capabilities = capabilities
       -- }
-      require('lspconfig').tsserver.setup({})
-
-      require('lspconfig').eslint.setup({})
     end,
   },
 }
