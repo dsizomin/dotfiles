@@ -81,7 +81,7 @@ vim.api.nvim_create_user_command('Lingo', function (opts)
 local cwd = vim.fn.getcwd()
 if cwd:match('dotfiles') then
   setup_lsp('lua')
-elseif cwd:match('web-code') then
+elseif cwd:match('web%-code') then
   setup_lsp('ts:uber-web')
 end
 
