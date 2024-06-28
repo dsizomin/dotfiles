@@ -67,14 +67,20 @@ local function setup_lsp(preset)
     lspconfig.tsserver.setup {
       capabilities = capabilities,
       tsserver = {
-        path = (vim.fn.getcwd()..'/.yarn/sdks/typescript/lib')
+        path = '.yarn/sdks/typescript/lib'
       }
     }
 
     null_ls.register({
-      require("none-ls.formatting.eslint"),
-      require("none-ls.diagnostics.eslint"),
-      require("none-ls.code_actions.eslint"),
+      require("none-ls.formatting.eslint").with({
+        command = '.yarn/sdks/eslint/bin/eslint.js',
+      }),
+      require("none-ls.diagnostics.eslint").with({
+        command = '.yarn/sdks/eslint/bin/eslint.js',
+      }),
+      require("none-ls.code_actions.eslint").with({
+        command = '.yarn/sdks/eslint/bin/eslint.js',
+      }),
     })
   elseif preset == 'lua' then
     lspconfig.lua_ls.setup {
