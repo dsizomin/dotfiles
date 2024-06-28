@@ -40,3 +40,48 @@ vim.cmd [[
   hi! link FoldColumn DraculaBoundary
   hi! link MoreMsg DraculaCyan
 ]]
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+local function setup_lsp(preset)
+  local lspconfig = require('lspconfig')
+
+  require('mason-lspconfig').setup {
+    automatic_installation = true,
+  }
+
+  require('lspsaga').setup({})
+
+  if preset == 'ts' then
+    lspconfig.tsserver.setup {
+      capabilities = capabilities,
+    }
+  elseif preset =='ts:uber-web' then
+    lspconfig.tsserver.setup {
+      capabilities = capabilities,
+      tsserver = {
+        path = (vim.fn.getcwd()..'/.yarn/sdks/typescript/lib')
+      }
+    }
+  elseif preset == 'lua' then
+    lspconfig.lua_ls.setup {
+      capabilities = capabilities,
+    }
+  end
+
+end
+
+vim.api.nvim_create_user_command('Lingo', function (opts)
+  local preset = opts.fargs[1]
+    setup_lsp(preset)
+  end, {
+  nargs = 1,
+})
+
+local cwd = vim.fn.getcwd()
+if cwd:match('dotfiles') then
+  setup_lsp('lua')
+elseif cwd:match('web-code') then
+  setup_lsp('ts:uber-web')
+end
+

@@ -1,15 +1,13 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    lazy = true,
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
     },
-    config = function()
-      require('lspconfig').tsserver.setup({})
-      require('lspconfig').lua_ls.setup({})
-    end,
   },
   {
+    lazy = true,
     'nvimdev/lspsaga.nvim',
      dependencies = {
       'nvim-treesitter/nvim-treesitter', -- optional
@@ -37,8 +35,5 @@ return {
         desc = "Rename (Lspsaga)",
       }
     },
-    config = function()
-        require('lspsaga').setup({})
-    end,
   }
 }
