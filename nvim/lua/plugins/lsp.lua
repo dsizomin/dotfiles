@@ -1,18 +1,23 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    lazy = true,
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
     },
   },
   {
-    lazy = true,
     'nvimdev/lspsaga.nvim',
     dependencies = {
       'nvim-treesitter/nvim-treesitter', -- optional
       'nvim-tree/nvim-web-devicons',     -- optional
     },
+    config = function()
+      require('lspsaga').setup({
+        ui = {
+          code_action = '',
+        }
+      })
+    end,
     keys = {
       {
         "<leader>ca",
