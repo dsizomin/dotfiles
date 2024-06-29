@@ -10,13 +10,13 @@ return {
         require('null-ls').setup({
           sources = {
             require("none-ls.formatting.eslint").with({
-              command = '.yarn/sdks/eslint/bin/eslint.js',
+              command = '/home/user/web-code/.yarn/sdks/eslint/bin/eslint.js',
             }),
             require("none-ls.diagnostics.eslint").with({
-              command = '.yarn/sdks/eslint/bin/eslint.js',
+              command = '/home/user/web-code/.yarn/sdks/eslint/bin/eslint.js',
             }),
             require("none-ls.code_actions.eslint").with({
-              command = '.yarn/sdks/eslint/bin/eslint.js',
+              command = '/home/user/web-code/.yarn/sdks/eslint/bin/eslint.js',
             }),
           }
         })

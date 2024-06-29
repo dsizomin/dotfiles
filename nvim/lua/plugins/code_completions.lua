@@ -18,6 +18,7 @@ return {
       'saadparwaiz1/cmp_luasnip',
       'L3MON4D3/LuaSnip',
       "neovim/nvim-lspconfig",
+      "zbirenbaum/copilot-cmp",
     },
     config = function()
       -- Set up nvim-cmp.
@@ -27,6 +28,7 @@ return {
       cmp.setup({
         formatting = {
           format = lspkind.cmp_format({
+            symbol_map = { Copilot = "" },
             -- mode = 'symbol', -- show only symbol annotations
             -- maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
             -- can also be a function to dynamically calculate max width such as
@@ -69,6 +71,7 @@ return {
           { name = 'luasnip' }, -- For luasnip users.
           -- { name = 'ultisnips' }, -- For ultisnips users.
           -- { name = 'snippy' }, -- For snippy users.
+          { name = 'copilot' }
         }, {
           { name = 'buffer' },
         })
@@ -104,7 +107,7 @@ return {
         lspconfig.tsserver.setup {
           capabilities = capabilities,
           tsserver = {
-            path = '.yarn/sdks/typescript/lib'
+            path = '/home/user/web-code/.yarn/sdks/typescript/lib'
           }
         }
       else

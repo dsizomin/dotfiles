@@ -1,20 +1,20 @@
-local HEIGHT_RATIO = 0.8  -- You can change this
-local WIDTH_RATIO = 0.5   -- You can change this too
+local HEIGHT_RATIO = 0.8 -- You can change this
+local WIDTH_RATIO = 0.5  -- You can change this too
 
 return {
   "nvim-tree/nvim-tree.lua",
   version = "*",
-  lazy = false,
+  lazy = true,
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
   keys = {
-    { "<leader>nt", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree"},
+    { "<leader>nt", "<cmd>NvimTreeToggle<cr>", desc = "Toggle NvimTree" },
   },
   config = function()
     require("nvim-tree").setup {
       update_focused_file = {
-	      enable = true
+        enable = true
       },
       view = {
         float = {
@@ -36,7 +36,7 @@ return {
               width = window_w_int,
               height = window_h_int,
             }
-            end,
+          end,
         },
         width = function()
           return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
