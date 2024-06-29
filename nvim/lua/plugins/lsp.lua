@@ -9,7 +9,7 @@ return {
   {
     lazy = true,
     'nvimdev/lspsaga.nvim',
-     dependencies = {
+    dependencies = {
       'nvim-treesitter/nvim-treesitter', -- optional
       'nvim-tree/nvim-web-devicons',     -- optional
     },
@@ -33,6 +33,21 @@ return {
         "<leader>rn",
         "<cmd>Lspsaga rename<cr>",
         desc = "Rename (Lspsaga)",
+      },
+      {
+        "<leader>fr",
+        "<cmd>Lspsaga finder<cr>",
+        desc = "LSP Finder (Lspsaga)",
+      },
+      {
+        "<leader>ou",
+        "<cmd>Lspsaga outline<cr>",
+        desc = "Outline (Lspsaga)",
+      },
+      {
+        "<leader>te",
+        "<cmd>Lspsaga term_toggle<cr>",
+        desc = "Terminal Toggle (Lspsaga)",
       }
     },
   }

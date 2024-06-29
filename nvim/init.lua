@@ -1,11 +1,11 @@
 vim.cmd [[
   set nocompatible            " disable compatibility to old-time vi
-  set showmatch               " show matching 
-  set ignorecase              " case insensitive 
-  set mouse=v                 " middle-click paste with 
-  set hlsearch                " highlight search 
+  set showmatch               " show matching
+  set ignorecase              " case insensitive
+  set mouse=v                 " middle-click paste with
+  set hlsearch                " highlight search
   set incsearch               " incremental search
-  set tabstop=2               " number of columns occupied by a tab 
+  set tabstop=2               " number of columns occupied by a tab
   set softtabstop=2           " see multiple spaces as tabstops so <BS> does the right thing
   set expandtab               " converts tabs to white space
   set shiftwidth=2            " width for autoindents
@@ -36,7 +36,7 @@ vim.cmd [[
   hi! link BufferVisibleMod DraculaOrangeBold
   hi! link BufferCurrentMod DraculaOrangeBold
   hi! link BufferInactiveMod DraculaOrange
-  
+
   hi! link FoldColumn DraculaBoundary
   hi! link MoreMsg DraculaCyan
 ]]
@@ -47,11 +47,25 @@ local function setup_lsp(preset)
   local lspconfig = require('lspconfig')
   local null_ls = require("null-ls")
 
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    buffer = bufnr,
+    callback = function()
+      -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+      -- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+      vim.lsp.buf.format()
+    end,
+  })
+
   require('mason-lspconfig').setup {
     automatic_installation = true,
   }
 
-  require('lspsaga').setup({})
+  require('lspsaga').setup({
+    ui = {
+      code_action = '',
+    }
+  })
 
   if preset == 'ts' then
     lspconfig.tsserver.setup {
@@ -63,7 +77,7 @@ local function setup_lsp(preset)
       require("none-ls.diagnostics.eslint"),
       require("none-ls.code_actions.eslint"),
     })
-  elseif preset =='ts:uber-web' then
+  elseif preset == 'ts:uber-web' then
     lspconfig.tsserver.setup {
       capabilities = capabilities,
       tsserver = {
@@ -87,13 +101,12 @@ local function setup_lsp(preset)
       capabilities = capabilities,
     }
   end
-
 end
 
-vim.api.nvim_create_user_command('Lingo', function (opts)
+vim.api.nvim_create_user_command('Lingo', function(opts)
   local preset = opts.fargs[1]
-    setup_lsp(preset)
-  end, {
+  setup_lsp(preset)
+end, {
   nargs = 1,
 })
 
@@ -103,4 +116,3 @@ if cwd:match('dotfiles') then
 elseif cwd:match('web%-code') then
   setup_lsp('ts:uber-web')
 end
-

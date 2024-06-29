@@ -6,9 +6,6 @@ return {
       'nvim-lua/plenary.nvim',
       "nvimtools/none-ls-extras.nvim",
     },
-    config = function()
-      require('null-ls').setup()
-    end
   }
   -- "mfussenegger/nvim-lint",
   -- config = function()
