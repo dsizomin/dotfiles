@@ -103,11 +103,24 @@ return {
 				capabilities = capabilities,
 			})
 
-			if vim.fn.getcwd():match("web%-code") then
+			local cwd = vim.fn.getcwd()
+
+			if cwd:match("web%-code") then
+				local lsputils = require("lspconfig.util")
+				local root_dir = lsputils.root_pattern(".yarn")
 				lspconfig.tsserver.setup({
 					capabilities = capabilities,
+					root_dir = root_dir,
 					tsserver = {
-						path = "/home/user/web-code/.yarn/sdks/typescript/lib",
+						path = root_dir(cwd) .. "/.yarn/sdks/typescript/lib",
+					},
+				})
+				lspconfig.eslint.setup({
+					capabilities = capabilities,
+					root_dir = root_dir,
+					workingDirectory = { mode = "auto" },
+					settings = {
+						nodePath = root_dir(cwd) .. "/.yarn/sdks",
 					},
 				})
 			else

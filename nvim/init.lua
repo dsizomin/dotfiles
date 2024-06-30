@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   set nocompatible            " disable compatibility to old-time vi
   set showmatch               " show matching
   set ignorecase              " case insensitive
@@ -18,7 +18,7 @@ vim.cmd [[
   set clipboard=unnamedplus   " using system clipboard
   filetype plugin on
   set ttyfast                 " Speed up scrolling in Vim
-]]
+]])
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
@@ -27,4 +27,8 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
-require('config.lazy')
+vim.diagnostic.config({
+	severity_sort = true,
+})
+
+require("config.lazy")
