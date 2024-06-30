@@ -10,10 +10,10 @@ return {
 					lua = { "stylua" },
 					-- Conform will run multiple formatters sequentially
 					-- python = { "isort", "black" },
-					javascript = { "prettierd" },
-					typescript = { "prettierd" },
-					javascriptreact = { "prettierd" },
-					typescriptreact = { "prettierd" },
+					javascript = { "prettier" },
+					typescript = { "prettier" },
+					javascriptreact = { "prettier" },
+					typescriptreact = { "prettier" },
 					-- lua = { "luaformatter" }
 				},
 			})
