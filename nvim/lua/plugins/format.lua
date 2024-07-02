@@ -1,25 +1,20 @@
 return {
-	"williamboman/mason.nvim",
 	{
 		"stevearc/conform.nvim",
+		dependencies = {
+			"williamboman/mason.nvim",
+		},
 		opts = {},
 		config = function()
 			local conform = require("conform")
 			conform.setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					-- Conform will run multiple formatters sequentially
-					-- python = { "isort", "black" },
-					-- javascript = { "prettier" },
-					-- typescript = { "prettier" },
-					-- javascriptreact = { "prettier" },
-					-- typescriptreact = { "prettier" },
-					-- lua = { "luaformatter" }
 				},
 			})
 
 			vim.api.nvim_create_autocmd("BufWritePre", {
-				pattern = "*",
+				pattern = "*.lua",
 				callback = function(args)
 					conform.format({ bufnr = args.buf })
 				end,

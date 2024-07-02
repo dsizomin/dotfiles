@@ -1,60 +1,63 @@
 return {
 	{
-		"neovim/nvim-lspconfig",
+		"williamboman/mason-lspconfig.nvim",
 		dependencies = {
-			"williamboman/mason-lspconfig.nvim",
-		},
-	},
-	{
-		"nvimdev/lspsaga.nvim",
-		event = "BufEnter",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter", -- optional
-			"nvim-tree/nvim-web-devicons", -- optional
+			"williamboman/mason.nvim",
 		},
 		config = function()
-			require("lspsaga").setup({
-				ui = {
-					code_action = "",
+			require("mason-lspconfig").setup({
+				automatic_installation = {
+					exclude = { "eslint" },
+				},
+				ensure_installed = {
+					"eslint@4.8.0",
 				},
 			})
 		end,
-		keys = {
-			{
-				"<leader>ca",
-				"<cmd>Lspsaga code_action<cr>",
-				desc = "Code Actions (Lspsaga)",
-			},
-			{
-				"<leader>pd",
-				"<cmd>Lspsaga peek_definition<cr>",
-				desc = "Peek Definition (Lspsaga)",
-			},
-			{
-				"<leader>gd",
-				"<cmd>Lspsaga goto_definition<cr>",
-				desc = "Goto Definition (Lspsaga)",
-			},
-			{
-				"<leader>rn",
-				"<cmd>Lspsaga rename<cr>",
-				desc = "Rename (Lspsaga)",
-			},
-			{
-				"<leader>fr",
-				"<cmd>Lspsaga finder<cr>",
-				desc = "LSP Finder (Lspsaga)",
-			},
-			{
-				"<leader>ou",
-				"<cmd>Lspsaga outline<cr>",
-				desc = "Outline (Lspsaga)",
-			},
-			{
-				"<leader>te",
-				"<cmd>Lspsaga term_toggle<cr>",
-				desc = "Terminal Toggle (Lspsaga)",
-			},
+	},
+	{
+		"neovim/nvim-lspconfig",
+
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
 		},
+
+		config = function()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local lspconfig = require("lspconfig")
+			local cwd = vim.fn.getcwd()
+
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+			})
+
+			if cwd:match("web%-code") then
+				local lsputils = require("lspconfig.util")
+				local root_dir = lsputils.root_pattern(".yarn")
+				lspconfig.tsserver.setup({
+					capabilities = capabilities,
+					init_options = {
+						maxTsServerMemory = 8192,
+						tsserver = {
+							path = root_dir(cwd) .. "/.yarn/sdks/typescript/lib/tsserver.js",
+						},
+					},
+				})
+				lspconfig.eslint.setup({
+					capabilities = capabilities,
+					workingDirectory = { mode = "auto" },
+					settings = {
+						nodePath = root_dir(cwd) .. "/.yarn/sdks",
+					},
+				})
+			else
+				lspconfig.tsserver.setup({
+					capabilities = capabilities,
+				})
+				lspconfig.eslint.setup({
+					capabilities = capabilities,
+				})
+			end
+		end,
 	},
 }
