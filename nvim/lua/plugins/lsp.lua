@@ -49,6 +49,12 @@ return {
 					settings = {
 						nodePath = root_dir(cwd) .. "/.yarn/sdks",
 					},
+					on_attach = function(client, bufnr)
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							command = "EslintFixAll",
+						})
+					end,
 				})
 			else
 				lspconfig.tsserver.setup({
@@ -56,6 +62,12 @@ return {
 				})
 				lspconfig.eslint.setup({
 					capabilities = capabilities,
+					on_attach = function(client, bufnr)
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							command = "EslintFixAll",
+						})
+					end,
 				})
 			end
 		end,
