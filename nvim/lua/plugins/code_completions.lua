@@ -1,8 +1,8 @@
 return {
 	"hrsh7th/nvim-cmp",
 	-- load cmp on InsertEnter
-	lazy = true,
-	event = "InsertEnter",
+	-- lazy = true,
+	-- event = "InsertEnter",
 	-- these dependencies will only be loaded when cmp loads
 	-- dependencies are always lazy-loaded unless specified otherwise
 	dependencies = {

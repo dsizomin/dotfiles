@@ -28,7 +28,14 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 vim.diagnostic.config({
-	severity_sort = true,
+  severity_sort = true,
 })
+
+vim.cmd([[
+  sign define DiagnosticSignError text= texthl=DiagnosticSignError
+  sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn
+  sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo
+  sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
+]])
 
 require("config.lazy")
