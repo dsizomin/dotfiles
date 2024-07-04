@@ -27,15 +27,13 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
+vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+
+require("config.lazy")
+
 vim.diagnostic.config({
   severity_sort = true,
 })
-
-vim.cmd([[
-  sign define DiagnosticSignError text= texthl=DiagnosticSignError
-  sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn
-  sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo
-  sign define DiagnosticSignHint text= texthl=DiagnosticSignHint
-]])
-
-require("config.lazy")
