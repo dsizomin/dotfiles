@@ -16,13 +16,21 @@ return {
 		end,
 	},
 	{
+		"ray-x/lsp_signature.nvim",
+		config = function()
+			require("lsp_signature").setup({
+				hint_enable = false,
+			})
+		end,
+	},
+	{
 		"ray-x/navigator.lua",
 		dependencies = {
 			{
 				"ray-x/guihua.lua",
 				run = "cd lua/fzy && make",
 			},
-			"ray-x/lsp_signature.nvim",
+
 			"neovim/nvim-lspconfig",
 			"hrsh7th/nvim-cmp",
 			{ "nvim-treesitter/nvim-treesitter" },
@@ -55,8 +63,7 @@ return {
 					} or {},
 				},
 				icons = {
-					-- requires Nerd Font or nvim-web-devicons pre-installed
-					icons = true, -- or "nerd" or "nvim-web-devicons"
+					-- icons = true,
 					diagnostic_err = "",
 					diagnostic_warn = "",
 					diagnostic_info = "",
