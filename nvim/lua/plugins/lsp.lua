@@ -28,8 +28,9 @@ return {
 			{ "nvim-treesitter/nvim-treesitter" },
 		},
 		config = function()
-			local util = require("navigator.util")
-			-- local remap = util.binding_remap
+			local cwd = vim.fn.getcwd()
+			local lsputils = require("lspconfig.util")
+			local root_dir = lsputils.root_pattern(".yarn")(cwd)
 
 			require("navigator").setup({
 				mason = true,
@@ -38,10 +39,28 @@ return {
 					diagnostics = {
 						severity_sort = { reverse = false },
 					},
+					tsserver = cwd:match("web%-code") and {
+						init_options = {
+							maxTsServerMemory = 8192,
+							tsserver = {
+								path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
+							},
+						},
+					} or {},
+					eslint = cwd:match("web%-code") and {
+						workingDirectory = { mode = "auto" },
+						settings = {
+							nodePath = root_dir .. "/.yarn/sdks",
+						},
+					} or {},
 				},
 				icons = {
 					-- requires Nerd Font or nvim-web-devicons pre-installed
-					icons = false, -- or "nerd" or "nvim-web-devicons"
+					icons = true, -- or "nerd" or "nvim-web-devicons"
+					diagnostic_err = "",
+					diagnostic_warn = "",
+					diagnostic_info = "",
+					diagnostic_hint = "",
 				},
 				keymaps = {
 					{
