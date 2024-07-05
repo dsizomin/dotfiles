@@ -5,6 +5,8 @@ return {
     config = function()
       require("toggleterm").setup({
         open_mapping = [[<c-\>]],
+        direction = "vertical",
+        size = vim.o.columns * 0.4,
       })
 
       function _G.set_terminal_keymaps()
