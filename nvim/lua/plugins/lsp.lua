@@ -21,6 +21,10 @@ return {
       require("lsp_signature").setup({
         hint_enable = false,
       })
+
+      vim.keymap.set({ "n" }, "<C-k>", function()
+        vim.lsp.buf.signature_help()
+      end, { silent = true, noremap = true, desc = "toggle signature" })
     end,
   },
   {
@@ -78,6 +82,16 @@ return {
             key = "<Leader>pd",
             func = require("navigator.definition").definition_preview,
             desc = "definition (preview)",
+          },
+          {
+            key = "<Leader>gt",
+            func = vim.lsp.buf.type_definition,
+            desc = "type_definition",
+          },
+          {
+            key = "<Leader>pt",
+            func = require("navigator.definition").type_definition_preview,
+            desc = "type definition (preview)",
           },
           {
             key = "K",
