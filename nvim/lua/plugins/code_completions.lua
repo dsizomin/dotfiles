@@ -1,8 +1,8 @@
 return {
 	"hrsh7th/nvim-cmp",
 	-- load cmp on InsertEnter
-	lazy = true,
-	event = "InsertEnter",
+	-- lazy = true,
+	-- event = "InsertEnter",
 	-- these dependencies will only be loaded when cmp loads
 	-- dependencies are always lazy-loaded unless specified otherwise
 	dependencies = {
@@ -21,6 +21,7 @@ return {
 			"L3MON4D3/LuaSnip",
 			build = "make install_jsregexp",
 		},
+		"windwp/nvim-autopairs",
 	},
 	config = function()
 		-- Set up nvim-cmp.
@@ -78,6 +79,10 @@ return {
 				{ name = "buffer" },
 			}),
 		})
+
+		require("nvim-autopairs").setup({})
+		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 		-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 		cmp.setup.cmdline({ "/", "?" }, {
