@@ -56,7 +56,16 @@ return {
     config = function()
       require("lspsaga").setup {}
     end,
-    keys = {},
+    keys = {
+      {"<leader>ac", "<cmd>Lspsaga code_action<CR>"},
+      {"<leader>pd", "<cmd>Lspsaga peek_definition<CR>"},
+      {"<leader>gd", "<cmd>Lspsaga goto_definition<CR>"},
+      {"<leader>pt", "<cmd>Lspsaga peek_type_definition<CR>"},
+      {"<leader>gt", "<cmd>Lspsaga goto_type_definition<CR>"},
+      {"<leader>rn", "<cmd>Lspsaga rename<CR>"},
+      {"<leader>fr", "<cmd>Lspsaga finder<CR>"},
+      {"K", "<cmd>Lspsaga hover_doc<CR>"},
+    },
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
       "nvim-tree/nvim-web-devicons", -- optional
@@ -102,7 +111,7 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>ft", "<cmd>Telescope file_browser<CR>", { noremap = true, silent = true } },
+      { "<leader>ft", "<cmd>Telescope file_browser<CR>" },
     },
     config = function()
       require("telescope").load_extension "file_browser"
