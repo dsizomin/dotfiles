@@ -72,6 +72,43 @@ return {
     },
   },
   {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      -- {
+      --   "<leader>cs",
+      --   "<cmd>Trouble symbols toggle focus=false<cr>",
+      --   desc = "Symbols (Trouble)",
+      -- },
+      -- {
+      --   "<leader>cl",
+      --   "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+      --   desc = "LSP Definitions / references / ... (Trouble)",
+      -- },
+      -- {
+      --   "<leader>xL",
+      --   "<cmd>Trouble loclist toggle<cr>",
+      --   desc = "Location List (Trouble)",
+      -- },
+      -- {
+      --   "<leader>xQ",
+      --   "<cmd>Trouble qflist toggle<cr>",
+      --   desc = "Quickfix List (Trouble)",
+      -- },
+    },
+  },
+  {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {},
@@ -113,6 +150,7 @@ return {
     keys = {
       { "<leader>ft", "<cmd>Telescope file_browser<CR>" },
     },
+
     config = function()
       require("telescope").load_extension "file_browser"
     end,
@@ -123,7 +161,7 @@ return {
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
       config = function()
-        require("ts_context_commentstring.internal").setup {
+        require("ts_context_commentstring").setup {
           enable_autocmd = true,
         }
       end,
@@ -133,5 +171,24 @@ return {
         pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
       }
     end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    },
+  },
+  {
+    "danymat/neogen",
+    event = "BufRead",
+    config = function()
+      require("neogen").setup { snippet_engine = "luasnip" }
+    end,
+    -- Uncomment next line if you want to follow only stable versions
+    -- version = "*"
   },
 }
