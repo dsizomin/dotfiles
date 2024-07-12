@@ -148,7 +148,7 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     keys = {
-      { "<leader>ft", "<cmd>Telescope file_browser<CR>" },
+      { "<leader>ft", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>" },
     },
 
     config = function()
@@ -180,6 +180,12 @@ return {
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
+      highlight = {
+        pattern = [[.*<(KEYWORDS)\s*]],
+      },
+      search = {
+        pattern = [[\b(KEYWORDS)::\b]],
+      },
     },
   },
   {
