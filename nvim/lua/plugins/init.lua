@@ -51,27 +51,6 @@ return {
     },
   },
   {
-    "nvimdev/lspsaga.nvim",
-    -- event = "LspAttach",
-    config = function()
-      require("lspsaga").setup {}
-    end,
-    keys = {
-      { "<leader>ac", "<cmd>Lspsaga code_action<CR>" },
-      { "<leader>pd", "<cmd>Lspsaga peek_definition<CR>" },
-      { "<leader>gd", "<cmd>Lspsaga goto_definition<CR>" },
-      { "<leader>pt", "<cmd>Lspsaga peek_type_definition<CR>" },
-      { "<leader>gt", "<cmd>Lspsaga goto_type_definition<CR>" },
-      { "<leader>rn", "<cmd>Lspsaga rename<CR>" },
-      { "<leader>fr", "<cmd>Lspsaga finder<CR>" },
-      { "K", "<cmd>Lspsaga hover_doc<CR>" },
-    },
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons", -- optional
-    },
-  },
-  {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
@@ -207,6 +186,17 @@ return {
       { "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>" },
       { "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>" },
       { "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>" },
+    },
+  },
+  {
+    "aznhe21/actions-preview.nvim",
+    keys = {
+      {
+        "gpa",
+        function()
+          require("actions-preview").code_actions()
+        end,
+      },
     },
   },
 }
