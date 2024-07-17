@@ -197,4 +197,16 @@ return {
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
   },
+  {
+    "rmagatti/goto-preview",
+    -- event = "BufEnter",
+    config = true, -- necessary as per https://github.com/rmagatti/goto-preview/issues/88
+    keys = {
+      { "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>" },
+      { "gpt", "<cmd>lua require('goto-preview').goto_preview_type_definition()<CR>" },
+      { "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>" },
+      { "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>" },
+      { "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>" },
+    },
+  },
 }
