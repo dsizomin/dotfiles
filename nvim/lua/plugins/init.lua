@@ -13,7 +13,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "williamboman/mason-lspconfig",
-      "pmizio/typescript-tools.nvim",
+      -- "pmizio/typescript-tools.nvim",
     },
     config = function()
       require("nvchad.configs.lspconfig").defaults()
@@ -87,11 +87,11 @@ return {
       -- },
     },
   },
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {},
-  },
+  -- {
+  --   "pmizio/typescript-tools.nvim",
+  --   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+  --   opts = {},
+  -- },
   {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
@@ -169,10 +169,12 @@ return {
   },
   {
     "danymat/neogen",
-    event = "BufRead",
     config = function()
       require("neogen").setup { snippet_engine = "luasnip" }
     end,
+    keys = {
+      { "<leader>gn", "<cmd>Neogen<CR>", desc = "Generate annotation" },
+    },
     -- Uncomment next line if you want to follow only stable versions
     -- version = "*"
   },
