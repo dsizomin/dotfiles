@@ -198,6 +198,7 @@ return {
         function()
           require("actions-preview").code_actions()
         end,
+        mode = { "n", "v" },
       },
     },
   },
