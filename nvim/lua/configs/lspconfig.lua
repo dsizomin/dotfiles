@@ -38,7 +38,13 @@ lspconfig.tsserver.setup(cwd:match "web%-code" and {
 
 -- eslint
 lspconfig.eslint.setup(cwd:match "web%-code" and {
-  on_attach = on_attach,
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+    on_attach(client, bufnr)
+  end,
   on_init = on_init,
   capabilities = capabilities,
   workingDirectory = { mode = "auto" },
