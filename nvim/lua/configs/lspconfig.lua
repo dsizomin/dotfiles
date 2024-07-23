@@ -4,7 +4,7 @@ local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
-local servers = {}
+local servers = {'marksman'}
 
 local cwd = vim.fn.getcwd()
 local lsputils = require "lspconfig.util"
