@@ -4,6 +4,8 @@
 ---@type ChadrcConfig
 local M = {}
 
+local CursorLineHighlight = {  bg = "#44475A" }
+
 M.ui = {
   theme = "chadracula",
 
@@ -12,6 +14,9 @@ M.ui = {
   hl_override = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
+    CursorLine = CursorLineHighlight,
+    CursorLineNr = CursorLineHighlight,
+    TelescopeSelection = CursorLineHighlight,
   },
   statusline = {
     theme = "minimal",
