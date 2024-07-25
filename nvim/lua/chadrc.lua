@@ -4,7 +4,7 @@
 ---@type ChadrcConfig
 local M = {}
 
-local CursorLineHighlight = {  bg = "#44475A" }
+local CursorLineHighlight = { bg = "#44475A" }
 
 M.ui = {
   theme = "chadracula",
@@ -23,7 +23,7 @@ M.ui = {
   },
   nvdash = {
     load_on_startup = true,
-  }
+  },
 }
 
 return M
