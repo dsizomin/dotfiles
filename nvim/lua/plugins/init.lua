@@ -13,12 +13,12 @@ return {
       --   If not available, we use `mini` as the fallback
       {
         "rcarriga/nvim-notify",
-        config = function ()
-          require('notify').setup({
-            background_color = "#000000"
-          })
-        end
-      }
+        config = function()
+          require("notify").setup {
+            background_color = "#000000",
+          }
+        end,
+      },
     },
     config = function()
       require("noice").setup {
@@ -55,10 +55,31 @@ return {
   -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     dependencies = {
       "williamboman/mason-lspconfig",
       -- "pmizio/typescript-tools.nvim",
+      -- main one
+      { "ms-jpq/coq_nvim", branch = "coq" },
+
+      -- 9000+ Snippets
+      { "ms-jpq/coq.artifacts", branch = "artifacts" },
+
+      -- lua & third party sources -- See https://github.com/ms-jpq/coq.thirdparty
+      -- Need to **configure separately**
+      { "ms-jpq/coq.thirdparty", branch = "3p" },
+      -- - shell repl
+      -- - nvim lua api
+      -- - scientific calculator
+      -- - comment banner
+      -- - etc
     },
+    init = function()
+      vim.g.coq_settings = {
+        auto_start = true, -- if you want to start COQ at startup
+        -- Your COQ settings here
+      }
+    end,
     config = function()
       require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
@@ -146,27 +167,28 @@ return {
   --     enable = false,
   --   },
   -- },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   dependencies = {
-  --     {
-  --       "zbirenbaum/copilot-cmp",
-  --       config = function()
-  --         require("copilot_cmp").setup()
-  --       end,
-  --     },
-  --   },
-  --   opts = {
-  --     sources = {
-  --       { name = "nvim_lsp", group_index = 2 },
-  --       { name = "copilot", group_index = 2 },
-  --       { name = "luasnip", group_index = 2 },
-  --       { name = "buffer", group_index = 2 },
-  --       { name = "nvim_lua", group_index = 2 },
-  --       { name = "path", group_index = 2 },
-  --     },
-  --   },
-  -- },
+  {
+    "hrsh7th/nvim-cmp",
+    -- dependencies = {
+    --   {
+    --     "zbirenbaum/copilot-cmp",
+    --     config = function()
+    --       require("copilot_cmp").setup()
+    --     end,
+    --   },
+    -- },
+    opts = {
+      enabled = false,
+      -- sources = {
+      --   { name = "nvim_lsp", group_index = 2 },
+      --   { name = "copilot", group_index = 2 },
+      --   { name = "luasnip", group_index = 2 },
+      --   { name = "buffer", group_index = 2 },
+      --   { name = "nvim_lua", group_index = 2 },
+      --   { name = "path", group_index = 2 },
+      -- },
+    },
+  },
   {
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
