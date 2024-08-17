@@ -7,13 +7,31 @@ return {
       require("cyberdream").setup {
         transparent = true,
         italic_comments = true,
-
+        borderless_telescope = true,
         theme = {
           variant = "dark",
         },
       }
       vim.cmd "colorscheme cyberdream"
     end,
+  },
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<Tab>", "<Cmd>BufferLineCycleNext<CR>", desc = "Next tab" },
+      { "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev tab" },
+    },
+    opts = {
+      options = {
+        diagnostics = "nvim_lsp",
+
+        diagnostics_indicator = function(count, level)
+          local sym = level == "error" and " " or (level == "warning" and " " or " ")
+          return count .. sym
+        end,
+      },
+    },
   },
   -- lazy.nvim
   {
@@ -143,6 +161,13 @@ return {
     end,
   },
   {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+  {
     "lewis6991/gitsigns.nvim",
     -- event = "User FilePost",
     opts = function()
@@ -218,11 +243,11 @@ return {
 
         map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
 
-        map("n", "<leader>ra", function()
-          require "nvchad.lsp.renamer"()
-        end, opts "NvRenamer")
+        -- map("n", "<leader>ra", function()
+        --   require "nvchad.lsp.renamer"()
+        -- end, opts "NvRenamer")
 
-        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
+        -- map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
         map("n", "gr", vim.lsp.buf.references, opts "Show references")
       end
 
@@ -358,7 +383,7 @@ return {
               Struct = "󰙅",
               Event = "",
               Operator = "󰆕",
-              TypeParameter = "",
+              TypeParameter = "󰗴",
             },
           }
         end,
@@ -469,6 +494,35 @@ return {
         },
       }
     end,
+  },
+  {
+    "aznhe21/actions-preview.nvim",
+    keys = {
+      {
+        "<leader>ca",
+        function()
+          require("actions-preview").code_actions()
+        end,
+        mode = { "n", "v" },
+      },
+    },
+  },
+  {
+    "folke/trouble.nvim",
+    opts = {}, -- for default options, refer to the configuration section for custom setup.
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+    },
   },
   {
     "kdheepak/lazygit.nvim",
