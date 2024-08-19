@@ -33,7 +33,6 @@ return {
       },
     },
   },
-  -- lazy.nvim
   {
     "folke/noice.nvim",
     event = "VeryLazy",
@@ -506,6 +505,17 @@ return {
         },
       }
     end,
+  },
+  {
+    "smjonas/inc-rename.nvim",
+    config = function()
+      require("inc_rename").setup {}
+    end,
+    keys = { {
+      "<leader>ra",
+      ":IncRename ",
+      desc = "IncRename",
+    } },
   },
   {
     "aznhe21/actions-preview.nvim",
