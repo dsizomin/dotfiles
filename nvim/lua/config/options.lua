@@ -3,7 +3,7 @@ local o = vim.o
 local g = vim.g
 
 -------------------------------------- globals -----------------------------------------
-g.toggle_theme_icon = "   "
+-- g.toggle_theme_icon = "   "
 
 -------------------------------------- options ------------------------------------------
 o.laststatus = 3
@@ -59,3 +59,7 @@ local is_windows = vim.fn.has "win32" ~= 0
 local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
+
+-- code folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

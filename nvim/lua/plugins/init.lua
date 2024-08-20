@@ -118,18 +118,11 @@ return {
   },
 
   {
-    "OXY2DEV/markview.nvim",
-    lazy = false, -- Recommended
-    -- ft = "markdown" -- If you decide to lazy-load anyway
-
-    dependencies = {
-      -- You will not need this if you installed the
-      -- parsers manually
-      -- Or if the parsers are in your $RUNTIMEPATH
-      "nvim-treesitter/nvim-treesitter",
-
-      "nvim-tree/nvim-web-devicons",
-    },
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {},
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -608,6 +601,33 @@ return {
     end,
     keys = {
       { "<leader>gn", "<cmd>Neogen<CR>", desc = "Generate annotation" },
+    },
+  },
+  {
+    "numToStr/Comment.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
+    config = function()
+      require("ts_context_commentstring").setup {
+        enable_autocmd = false,
+      }
+      require("Comment").setup {
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      }
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {
+      highlight = {
+        pattern = [[.*<(KEYWORDS)\s*]],
+      },
+      search = {
+        pattern = [[\b(KEYWORDS)\b]],
+      },
     },
   },
 }
