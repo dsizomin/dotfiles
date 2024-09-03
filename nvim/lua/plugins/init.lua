@@ -243,6 +243,7 @@ return {
         map("n", "<leader>sh", vim.lsp.buf.signature_help, opts "Show signature help")
         map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
         map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
+        map("n", "K", vim.lsp.buf.hover, opts "Hover documentation")
 
         map("n", "<leader>wl", function()
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
