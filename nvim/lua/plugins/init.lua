@@ -318,12 +318,12 @@ return {
       }
 
       -- typescript
-      lspconfig.tsserver.setup(cwd:match "web%-code" and {
+      lspconfig.ts_ls.setup(cwd:match "web%-code" and {
         on_attach = on_attach,
         on_init = on_init,
         capabilities = capabilities,
         init_options = {
-          maxTsServerMemory = 8192,
+          -- maxTsServerMemory = 8192,
           tsserver = {
             path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
           },
