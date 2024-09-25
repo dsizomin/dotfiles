@@ -71,7 +71,7 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    dependencies = { "echasnovski/mini.icons" },
+    dependencies = { "nvim-web-devicons" },
     opts = function()
       return {
         options = {
