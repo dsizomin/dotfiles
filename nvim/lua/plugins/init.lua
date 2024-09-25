@@ -68,21 +68,82 @@ return {
       }
     end,
   },
-
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("lualine").setup {
-        -- ... other config
+    event = "VeryLazy",
+    dependencies = { "echasnovski/mini.icons" },
+    opts = function()
+      return {
         options = {
-          theme = "cyberdream", -- "auto" will set the theme dynamically based on the colorscheme
+          component_separators = { left = " ", right = " " },
+          section_separators = { left = " ", right = " " },
+          theme = "cyberdream",
         },
-        -- ... other config
+        sections = {
+          lualine_a = {
+            {
+              "mode",
+              icon = "",
+              fmt = function(mode)
+                return mode:lower()
+              end,
+            },
+          },
+          -- lualine_b = { { "branch", icon = "" } },
+          lualine_c = {
+            {
+              "filename",
+              color = function()
+                local _, hl = require("nvim-web-devicons").get_icon(vim.fn.expand "%:t")
+                if hl then
+                  return hl
+                end
+                return "Normal"
+              end,
+              fmt = function(name)
+                local devicons = require "nvim-web-devicons"
+                local ft = vim.bo.filetype
+                local icon
+                if icon == nil then
+                  icon = devicons.get_icon(vim.fn.expand "%:t")
+                end
+                if icon == nil then
+                  icon = devicons.get_icon_by_filetype(ft)
+                end
+                if icon == nil then
+                  icon = " 󰈤"
+                end
+
+                return icon .. " " .. name
+              end,
+            },
+            {
+              function()
+                if not pcall(require, "lsp_signature") then
+                  return
+                end
+                local sig = require("lsp_signature").status_line(50)
+                return sig.label
+              end,
+              icon = "󰊕",
+              color = "Special",
+            },
+            {
+              function()
+                if not pcall(require, "lsp_signature") then
+                  return
+                end
+                local sig = require("lsp_signature").status_line(50)
+                return sig.hint
+              end,
+              icon = "󰀫",
+              color = "String",
+            },
+          },
+        },
       }
     end,
   },
-
   {
     "nvim-tree/nvim-web-devicons",
     lazy = false,
@@ -392,6 +453,7 @@ return {
               Event = "",
               Operator = "󰆕",
               TypeParameter = "󰗴",
+              Copilot = "",
             },
           }
         end,
@@ -520,6 +582,7 @@ return {
           { name = "buffer" },
           { name = "nvim_lua" },
           { name = "path" },
+          { name = "copilot" },
         },
       }
     end,
@@ -528,9 +591,8 @@ return {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
     opts = {
-      toggle_key = "<M-x>",
-      select_signature_key = "<M-n>",
-      hint_prefix = "󰀫 ",
+      floating_window = false,
+      hint_enable = false,
     },
     config = function(_, opts)
       require("lsp_signature").setup(opts)
@@ -639,6 +701,29 @@ return {
       require("nvim-surround").setup {
         -- Configuration here, or leave empty to use defaults
       }
+    end,
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    end,
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup()
     end,
   },
 }
