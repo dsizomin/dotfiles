@@ -153,11 +153,20 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     cmd = "Telescope",
+    config = function()
+      require("telescope").setup {
+        extensions = {
+          file_browser = {
+            hijack_netrw = true,
+          },
+        },
+      }
+    end,
   },
 
   {
     "nvim-telescope/telescope-file-browser.nvim",
-    lazy = true,
+    lazy = false,
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     keys = {
       { "<leader>ft", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>" },
