@@ -212,6 +212,7 @@ return {
         "html",
         "css",
         "markdown",
+        "graphql",
       },
 
       highlight = {
@@ -429,6 +430,12 @@ return {
         on_init = on_init,
         capabilities = capabilities,
       })
+
+      lspconfig.graphql.setup {
+        on_attach = on_attach,
+        on_init = on_init,
+        capabilities = capabilities,
+      }
     end,
   },
 
