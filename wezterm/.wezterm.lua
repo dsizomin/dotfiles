@@ -1,5 +1,5 @@
 -- Pull in the wezterm API
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 
 -- This will hold the configuration.
 local config = wezterm.config_builder()
@@ -9,12 +9,15 @@ local config = wezterm.config_builder()
 -- For example, changing the color scheme:
 -- config.color_scheme = 'Dracula (Gogh)'
 config.colors = {
-  background = "black",
+	background = "black",
 }
 
-config.window_background_opacity = 0.3
+config.window_background_opacity = 0.5
 config.macos_window_background_blur = 20
-config.font = wezterm.font 'FiraCode Nerd Font'
+
+config.font = wezterm.font("FiraCode Nerd Font")
 config.font_size = 16
+
+config.tab_bar_at_bottom = true
 -- and finally, return the configuration to wezterm
 return config
