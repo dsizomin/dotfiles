@@ -20,5 +20,6 @@ config.font_size = 16
 
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
+config.tab_max_width = 48
 -- and finally, return the configuration to wezterm
 return config
