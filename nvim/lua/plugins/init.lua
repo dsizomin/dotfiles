@@ -399,7 +399,7 @@ return {
         on_init = on_init,
         capabilities = capabilities,
         init_options = {
-          -- maxTsServerMemory = 8192,
+          maxTsServerMemory = 65536,
           tsserver = {
             path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
           },

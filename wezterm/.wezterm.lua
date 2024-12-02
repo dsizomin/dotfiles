@@ -12,8 +12,8 @@ config.colors = {
 	background = "black",
 }
 
-config.window_background_opacity = 0.5
-config.macos_window_background_blur = 30
+config.window_background_opacity = 0.75
+config.macos_window_background_blur = 60
 
 config.font = wezterm.font("FiraCode Nerd Font")
 config.font_size = 16
