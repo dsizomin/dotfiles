@@ -394,21 +394,21 @@ return {
       }
 
       -- typescript
-      lspconfig.ts_ls.setup(cwd:match "web%-code" and {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-        init_options = {
-          maxTsServerMemory = 65536,
-          tsserver = {
-            path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
-          },
-        },
-      } or {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-      })
+      -- lspconfig.ts_ls.setup(cwd:match "web%-code" and {
+      --   on_attach = on_attach,
+      --   on_init = on_init,
+      --   capabilities = capabilities,
+      --   init_options = {
+      --     maxTsServerMemory = 65536,
+      --     tsserver = {
+      --       path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
+      --     },
+      --   },
+      -- } or {
+      --   on_attach = on_attach,
+      --   on_init = on_init,
+      --   capabilities = capabilities,
+      -- })
 
       -- eslint
       lspconfig.eslint.setup(cwd:match "web%-code" and {
@@ -438,7 +438,19 @@ return {
       }
     end,
   },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      local cwd = vim.fn.getcwd()
+      local lsputils = require "lspconfig.util"
+      local root_dir = lsputils.root_pattern ".yarn"(cwd)
 
+      require("typescript-tools").setup(cwd:match "web%-code" and {
+        tsserver_path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
+      } or {})
+    end,
+  },
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
