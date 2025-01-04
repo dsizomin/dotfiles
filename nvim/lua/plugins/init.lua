@@ -394,21 +394,58 @@ return {
       }
 
       -- typescript
-      lspconfig.ts_ls.setup(cwd:match "web%-code" and {
+      -- lspconfig.ts_ls.setup(cwd:match "web%-code" and {
+      --   on_attach = on_attach,
+      --   on_init = on_init,
+      --   capabilities = capabilities,
+      --   init_options = {
+      --     maxTsServerMemory = 65536,
+      --     tsserver = {
+      --       path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
+      --     },
+      --   },
+      -- } or {
+      --   on_attach = on_attach,
+      --   on_init = on_init,
+      --   capabilities = capabilities,
+      -- })
+      --
+
+      lspconfig.vtsls.setup {
         on_attach = on_attach,
         on_init = on_init,
         capabilities = capabilities,
-        init_options = {
-          maxTsServerMemory = 65536,
-          tsserver = {
-            path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
+        settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            -- autoUseWorkspaceTsdk = true,
+            typescript = {
+              globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
+            },
+            experimental = {
+              maxInlayHintLength = 30,
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
+            },
+          },
+          typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
           },
         },
-      } or {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-      })
+      }
 
       -- eslint
       lspconfig.eslint.setup(cwd:match "web%-code" and {
