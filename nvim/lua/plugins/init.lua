@@ -479,43 +479,54 @@ return {
   },
   {
     "saghen/blink.cmp",
-    lazy = false, -- lazy loading handled internally
-    -- optional: provides snippets for the snippet source
+    lazy = false,
     dependencies = {
       {
         "giuxtaposition/blink-cmp-copilot",
         "rafamadriz/friendly-snippets",
       },
     },
-    -- use a release tag to download pre-built binaries
     version = "v0.*",
-    -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = 'cargo build --release',
-    -- If you use nix, you can build from source using latest nightly rust with:
-    -- build = 'nix run .#build-plugin',
-
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
     opts = {
-      -- 'default' for mappings similar to built-in completion
-      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-      -- see the "default configuration" section below for full documentation on how to define
-      -- your own keymap.
       keymap = { preset = "enter" },
 
       appearance = {
-        -- Sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- Useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release
-        use_nvim_cmp_as_default = true,
-        -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-        -- Adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
+        kind_icons = {
+          Copilot = "",
+          Text = "󰉿",
+          Method = "󰊕",
+          Function = "󰊕",
+          Constructor = "󰒓",
+
+          Field = "󰜢",
+          Variable = "󰆦",
+          Property = "󰖷",
+
+          Class = "󱡠",
+          Interface = "󱡠",
+          Struct = "󱡠",
+          Module = "󰅩",
+
+          Unit = "󰪚",
+          Value = "󰦨",
+          Enum = "󰦨",
+          EnumMember = "󰦨",
+
+          Keyword = "󰻾",
+          Constant = "󰏿",
+
+          Snippet = "󱄽",
+          Color = "󰏘",
+          File = "󰈔",
+          Reference = "󰬲",
+          Folder = "󰉋",
+          Event = "󱐋",
+          Operator = "󰪚",
+          TypeParameter = "󰬛",
+        },
       },
 
-      -- default list of enabled providers defined so that you can extend it
-      -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "copilot" },
         providers = {
@@ -524,192 +535,28 @@ return {
             module = "blink-cmp-copilot",
             score_offset = 100,
             async = true,
+            transform_items = function(_, items)
+              local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+              local kind_idx = #CompletionItemKind + 1
+              CompletionItemKind[kind_idx] = "Copilot"
+              for _, item in ipairs(items) do
+                item.kind = kind_idx
+              end
+              return items
+            end,
           },
         },
-        -- optionally disable cmdline completions
-        -- cmdline = {},
       },
       completion = {
         list = {
-          selection = "auto_insert",
+          selection = "manual",
         },
       },
-      -- experimental signature help support
-      -- signature = { enabled = true }
+
+      signature = { enabled = true },
     },
-    -- allows extending the providers array elsewhere in your config
-    -- without having to redefine it
     opts_extend = { "sources.default" },
   },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   event = "InsertEnter",
-  --   dependencies = {
-  --     {
-  --       "onsails/lspkind.nvim",
-  --       config = function()
-  --         require("lspkind").init {
-  --           mode = "symbol_text",
-  --           symbol_map = {
-  --             Text = "󰉿",
-  --             Method = "󰆧",
-  --             Function = "󰊕",
-  --             Constructor = "",
-  --             Field = "󰜢",
-  --             Variable = "󰀫",
-  --             Class = "󰠱",
-  --             Interface = "",
-  --             Module = "",
-  --             Property = "󰜢",
-  --             Unit = "󰑭",
-  --             Value = "󰎠",
-  --             Enum = "",
-  --             Keyword = "󰌋",
-  --             Snippet = "",
-  --             Color = "󰏘",
-  --             File = "󰈙",
-  --             Reference = "󰈇",
-  --             Folder = "󰉋",
-  --             EnumMember = "",
-  --             Constant = "󰏿",
-  --             Struct = "󰙅",
-  --             Event = "",
-  --             Operator = "󰆕",
-  --             TypeParameter = "󰗴",
-  --             Copilot = "",
-  --           },
-  --         }
-  --       end,
-  --     },
-  --     {
-  --       -- snippet plugin
-  --       "L3MON4D3/LuaSnip",
-  --       dependencies = "rafamadriz/friendly-snippets",
-  --       opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-  --       config = function(_, opts)
-  --         require("luasnip").config.set_config(opts)
-  --         -- vscode format
-  --         require("luasnip.loaders.from_vscode").lazy_load { exclude = vim.g.vscode_snippets_exclude or {} }
-  --         require("luasnip.loaders.from_vscode").lazy_load { paths = vim.g.vscode_snippets_path or "" }
-  --
-  --         -- snipmate format
-  --         require("luasnip.loaders.from_snipmate").load()
-  --         require("luasnip.loaders.from_snipmate").lazy_load { paths = vim.g.snipmate_snippets_path or "" }
-  --
-  --         -- lua format
-  --         require("luasnip.loaders.from_lua").load()
-  --         require("luasnip.loaders.from_lua").lazy_load { paths = vim.g.lua_snippets_path or "" }
-  --
-  --         vim.api.nvim_create_autocmd("InsertLeave", {
-  --           callback = function()
-  --             if
-  --               require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-  --               and not require("luasnip").session.jump_active
-  --             then
-  --               require("luasnip").unlink_current()
-  --             end
-  --           end,
-  --         })
-  --       end,
-  --     },
-  --
-  --     -- autopairing of (){}[] etc
-  --     {
-  --       "windwp/nvim-autopairs",
-  --       opts = {
-  --         fast_wrap = {},
-  --         disable_filetype = { "TelescopePrompt", "vim" },
-  --       },
-  --       config = function(_, opts)
-  --         require("nvim-autopairs").setup(opts)
-  --
-  --         -- setup cmp for autopairs
-  --         local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-  --         require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-  --       end,
-  --     },
-  --
-  --     -- cmp sources plugins
-  --     {
-  --       "saadparwaiz1/cmp_luasnip",
-  --       "hrsh7th/cmp-nvim-lua",
-  --       "hrsh7th/cmp-nvim-lsp",
-  --       "hrsh7th/cmp-buffer",
-  --       "hrsh7th/cmp-path",
-  --     },
-  --   },
-  --   opts = function()
-  --     local cmp = require "cmp"
-  --
-  --     return {
-  --       completion = {
-  --         completeopt = "menu,menuone",
-  --       },
-  --
-  --       snippet = {
-  --         expand = function(args)
-  --           require("luasnip").lsp_expand(args.body)
-  --         end,
-  --       },
-  --       formatting = {
-  --         format = function(entry, vim_item)
-  --           if vim.tbl_contains({ "path" }, entry.source.name) then
-  --             local icon, hl_group = require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
-  --             if icon then
-  --               vim_item.kind = icon
-  --               vim_item.kind_hl_group = hl_group
-  --               return vim_item
-  --             end
-  --           end
-  --
-  --           return require("lspkind").cmp_format {}(entry, vim_item)
-  --         end,
-  --       },
-  --
-  --       mapping = {
-  --         ["<C-p>"] = cmp.mapping.select_prev_item(),
-  --         ["<C-n>"] = cmp.mapping.select_next_item(),
-  --         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-  --         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-  --         ["<C-Space>"] = cmp.mapping.complete(),
-  --         ["<C-e>"] = cmp.mapping.close(),
-  --
-  --         ["<CR>"] = cmp.mapping.confirm {
-  --           behavior = cmp.ConfirmBehavior.Insert,
-  --           select = true,
-  --         },
-  --
-  --         ["<Tab>"] = cmp.mapping(function(fallback)
-  --           if cmp.visible() then
-  --             cmp.select_next_item()
-  --           elseif require("luasnip").expand_or_jumpable() then
-  --             require("luasnip").expand_or_jump()
-  --           else
-  --             fallback()
-  --           end
-  --         end, { "i", "s" }),
-  --
-  --         ["<S-Tab>"] = cmp.mapping(function(fallback)
-  --           if cmp.visible() then
-  --             cmp.select_prev_item()
-  --           elseif require("luasnip").jumpable(-1) then
-  --             require("luasnip").jump(-1)
-  --           else
-  --             fallback()
-  --           end
-  --         end, { "i", "s" }),
-  --       },
-  --       sources = {
-  --         { name = "nvim_lsp" },
-  --         { name = "luasnip" },
-  --         { name = "buffer" },
-  --         { name = "nvim_lua" },
-  --         { name = "path" },
-  --         { name = "copilot" },
-  --       },
-  --     }
-  --   end,
-  -- },
   {
     "ray-x/lsp_signature.nvim",
     event = "VeryLazy",
