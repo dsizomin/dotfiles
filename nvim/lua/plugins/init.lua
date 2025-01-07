@@ -388,9 +388,9 @@ return {
           complete_function_calls = true,
           vtsls = {
             enableMoveToFileCodeAction = true,
-            typescript = {
+            typescript = cwd:match "web%-code" and {
               globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
-            },
+            } or {},
             experimental = {
               maxInlayHintLength = 30,
               completion = {
@@ -419,7 +419,7 @@ return {
       }
 
       -- eslint
-      lspconfig.eslint.setup(cwd:match "web%-code" and {
+      lspconfig.eslint.setup {
         on_attach = function(client, bufnr)
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
@@ -430,14 +430,10 @@ return {
         on_init = on_init,
         capabilities = capabilities,
         workingDirectory = { mode = "auto" },
-        settings = {
+        settings = cwd:match "web%-code" and {
           nodePath = root_dir .. "/.yarn/sdks",
-        },
-      } or {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-      })
+        } or {},
+      }
 
       lspconfig.graphql.setup {
         on_attach = on_attach,
