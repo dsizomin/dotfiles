@@ -452,6 +452,7 @@ return {
       {
         "giuxtaposition/blink-cmp-copilot",
         "rafamadriz/friendly-snippets",
+        "onsails/lspkind.nvim",
       },
     },
     version = "v0.*",
@@ -460,44 +461,26 @@ return {
 
       appearance = {
         nerd_font_variant = "mono",
-        kind_icons = {
-          Copilot = "",
-          Text = "󰉿",
-          Method = "󰊕",
-          Function = "󰊕",
-          Constructor = "󰒓",
-
-          Field = "󰜢",
-          Variable = "󰆦",
-          Property = "󰖷",
-
-          Class = "󱡠",
-          Interface = "󱡠",
-          Struct = "󱡠",
-          Module = "󰅩",
-
-          Unit = "󰪚",
-          Value = "󰦨",
-          Enum = "󰦨",
-          EnumMember = "󰦨",
-
-          Keyword = "󰻾",
-          Constant = "󰏿",
-
-          Snippet = "󱄽",
-          Color = "󰏘",
-          File = "󰈔",
-          Reference = "󰬲",
-          Folder = "󰉋",
-          Event = "󱐋",
-          Operator = "󰪚",
-          TypeParameter = "󰬛",
-        },
+        use_nvim_cmp_as_default = false,
       },
 
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "copilot" },
         providers = {
+          lsp = {
+            min_keyword_length = 2, -- Number of characters to trigger porvider
+            score_offset = 0, -- Boost/penalize the score of the items
+          },
+          path = {
+            min_keyword_length = 0,
+          },
+          snippets = {
+            min_keyword_length = 2,
+          },
+          buffer = {
+            min_keyword_length = 5,
+            max_items = 5,
+          },
           copilot = {
             name = "copilot",
             module = "blink-cmp-copilot",
@@ -516,6 +499,27 @@ return {
         },
       },
       completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 250,
+          treesitter_highlighting = true,
+          window = {
+            border = "rounded",
+          },
+        },
+        menu = {
+          border = "rounded",
+          draw = {
+            components = {
+              kind_icon = {
+                text = function(item)
+                  local kind = (item.kind == "Copilot" and "") or require("lspkind").symbol_map[item.kind] or ""
+                  return kind .. " "
+                end,
+              },
+            },
+          },
+        },
         list = {
           selection = "manual",
         },
@@ -524,7 +528,12 @@ return {
         },
       },
 
-      signature = { enabled = true },
+      signature = {
+        enabled = true,
+        window = {
+          border = "rounded",
+        },
+      },
     },
     opts_extend = { "sources.default" },
   },
