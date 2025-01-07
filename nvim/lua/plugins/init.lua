@@ -7,7 +7,7 @@ return {
       require("cyberdream").setup {
         transparent = true,
         italic_comments = true,
-        borderless_telescope = true,
+        borderless_telescope = false,
         theme = {
           variant = "dark",
         },
@@ -296,6 +296,7 @@ return {
       local x = vim.diagnostic.severity
 
       vim.diagnostic.config {
+        severity_sort = true,
         virtual_text = { prefix = "" },
         signs = { text = { [x.ERROR] = "󰅙", [x.WARN] = "", [x.INFO] = "󰋼", [x.HINT] = "󰌵" } },
         underline = true,
