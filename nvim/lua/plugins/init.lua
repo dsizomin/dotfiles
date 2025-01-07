@@ -117,28 +117,28 @@ return {
                 return icon .. " " .. name
               end,
             },
-            {
-              function()
-                if not pcall(require, "lsp_signature") then
-                  return
-                end
-                local sig = require("lsp_signature").status_line(50)
-                return sig.label
-              end,
-              icon = "󰊕",
-              color = "Special",
-            },
-            {
-              function()
-                if not pcall(require, "lsp_signature") then
-                  return
-                end
-                local sig = require("lsp_signature").status_line(50)
-                return sig.hint
-              end,
-              icon = "󰀫",
-              color = "String",
-            },
+            -- {
+            --   function()
+            --     if not pcall(require, "lsp_signature") then
+            --       return
+            --     end
+            --     local sig = require("lsp_signature").status_line(50)
+            --     return sig.label
+            --   end,
+            --   icon = "󰊕",
+            --   color = "Special",
+            -- },
+            -- {
+            --   function()
+            --     if not pcall(require, "lsp_signature") then
+            --       return
+            --     end
+            --     local sig = require("lsp_signature").status_line(50)
+            --     return sig.hint
+            --   end,
+            --   icon = "󰀫",
+            --   color = "String",
+            -- },
           },
         },
       }
@@ -338,30 +338,11 @@ return {
 
       -- on_init
       local function on_init(client, _)
-        -- if client.supports_method "textDocument/semanticTokens" then
-        --   client.server_capabilities.semanticTokensProvider = nil
-        -- end
+        if client.supports_method "textDocument/semanticTokens" then
+          client.server_capabilities.semanticTokensProvider = nil
+        end
       end
 
-      -- capabilities
-      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities.textDocument.completion.completionItem = {
-      --   documentationFormat = { "markdown", "plaintext" },
-      --   snippetSupport = true,
-      --   preselectSupport = true,
-      --   insertReplaceSupport = true,
-      --   labelDetailsSupport = true,
-      --   deprecatedSupport = true,
-      --   commitCharactersSupport = true,
-      --   tagSupport = { valueSet = { 1 } },
-      --   resolveSupport = {
-      --     properties = {
-      --       "documentation",
-      --       "detail",
-      --       "additionalTextEdits",
-      --     },
-      --   },
-      -- }
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       local lspconfig = require "lspconfig"
@@ -395,33 +376,17 @@ return {
         },
       }
 
-      -- typescript
-      -- lspconfig.ts_ls.setup(cwd:match "web%-code" and {
-      --   on_attach = on_attach,
-      --   on_init = on_init,
-      --   capabilities = capabilities,
-      --   init_options = {
-      --     maxTsServerMemory = 65536,
-      --     tsserver = {
-      --       path = root_dir .. "/.yarn/sdks/typescript/lib/tsserver.js",
-      --     },
-      --   },
-      -- } or {
-      --   on_attach = on_attach,
-      --   on_init = on_init,
-      --   capabilities = capabilities,
-      -- })
-      --
-
       lspconfig.vtsls.setup {
         on_attach = on_attach,
         on_init = on_init,
         capabilities = capabilities,
+        init_options = {
+          hostInfo = "neovim",
+        },
         settings = {
           complete_function_calls = true,
           vtsls = {
             enableMoveToFileCodeAction = true,
-            -- autoUseWorkspaceTsdk = true,
             typescript = {
               globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
             },
@@ -444,6 +409,9 @@ return {
               parameterTypes = { enabled = true },
               propertyDeclarationTypes = { enabled = true },
               variableTypes = { enabled = false },
+            },
+            tsserver = {
+              maxTsServerMemory = 16384,
             },
           },
         },
@@ -551,6 +519,9 @@ return {
         list = {
           selection = "manual",
         },
+        ghost_text = {
+          enabled = true,
+        },
       },
 
       signature = { enabled = true },
@@ -558,16 +529,23 @@ return {
     opts_extend = { "sources.default" },
   },
   {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    opts = {
-      floating_window = false,
-      hint_enable = false,
-    },
-    config = function(_, opts)
-      require("lsp_signature").setup(opts)
-    end,
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true,
+    -- use opts = {} for passing setup options
+    -- this is equivalent to setup({}) function
   },
+  -- {
+  --   "ray-x/lsp_signature.nvim",
+  --   event = "VeryLazy",
+  --   opts = {
+  --     floating_window = false,
+  --     hint_enable = false,
+  --   },
+  --   config = function(_, opts)
+  --     require("lsp_signature").setup(opts)
+  --   end,
+  -- },
   {
     "smjonas/inc-rename.nvim",
     config = function()
