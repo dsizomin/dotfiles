@@ -448,14 +448,14 @@ return {
     dependencies = {
       {
         "giuxtaposition/blink-cmp-copilot",
-        "rafamadriz/friendly-snippets",
+        { "L3MON4D3/LuaSnip", version = "v2.*" },
         "onsails/lspkind.nvim",
       },
     },
     version = "v0.*",
     opts = {
       keymap = { preset = "enter" },
-
+      snippets = { preset = "luasnip" },
       appearance = {
         nerd_font_variant = "mono",
         use_nvim_cmp_as_default = false,
@@ -605,6 +605,11 @@ return {
   },
   {
     "danymat/neogen",
+    dependencies = {
+      {
+        { "L3MON4D3/LuaSnip", version = "v2.*" },
+      },
+    },
     config = function()
       require("neogen").setup { snippet_engine = "luasnip" }
     end,
