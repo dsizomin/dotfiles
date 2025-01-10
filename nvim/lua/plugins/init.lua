@@ -1,3 +1,6 @@
+local cwd = vim.fn.getcwd()
+local isWebCode = cwd:match "web%-code"
+
 return {
   {
     "scottmckendry/cyberdream.nvim",
@@ -347,7 +350,6 @@ return {
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       local lspconfig = require "lspconfig"
-      local cwd = vim.fn.getcwd()
       local lsputils = require "lspconfig.util"
       local root_dir = lsputils.root_pattern ".yarn"(cwd)
 
@@ -388,7 +390,7 @@ return {
           complete_function_calls = true,
           vtsls = {
             enableMoveToFileCodeAction = true,
-            typescript = cwd:match "web%-code" and {
+            typescript = isWebCode and {
               globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
             } or {},
             experimental = {
@@ -402,6 +404,7 @@ return {
             updateImportsOnFileMove = { enabled = "always" },
             suggest = {
               completeFunctionCalls = true,
+              autoImports = not isWebCode,
             },
             inlayHints = {
               enumMemberValues = { enabled = true },
@@ -430,7 +433,7 @@ return {
         on_init = on_init,
         capabilities = capabilities,
         workingDirectory = { mode = "auto" },
-        settings = cwd:match "web%-code" and {
+        settings = isWebCode and {
           nodePath = root_dir .. "/.yarn/sdks",
         } or {},
       }
@@ -476,6 +479,7 @@ return {
         providers = {
           lsp = {
             score_offset = 0, -- Boost/penalize the score of the items
+            async = true,
           },
           copilot = {
             name = "copilot",
@@ -519,11 +523,7 @@ return {
         list = {
           selection = {
             preselect = false,
-            -- auto_insert = false,
           },
-        },
-        ghost_text = {
-          enabled = true,
         },
       },
 
