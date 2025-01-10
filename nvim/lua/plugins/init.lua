@@ -673,16 +673,29 @@ return {
       }
     end,
   },
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   config = function()
-  --     require("copilot_cmp").setup()
-  --   end,
-  -- },
   {
     "norcalli/nvim-colorizer.lua",
     config = function()
       require("colorizer").setup()
+    end,
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-jest",
+    },
+    config = function()
+      require("neotest").setup {
+        adapters = {
+          require "neotest-jest"(isWebCode and {
+            jestCommand = "jz test",
+          } or {}),
+        },
+      }
     end,
   },
 }
