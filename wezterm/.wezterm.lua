@@ -5,15 +5,17 @@ local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
-
--- For example, changing the color scheme:
 config.colors = require("cyberdream")
-config.colors = {
-	background = "black",
+config.window_background_opacity = 0.8
+config.window_background_gradient = {
+	orientation = "Horizontal",
+	colors = {
+		"black",
+		"#732470",
+		"#4c7a5a",
+	},
 }
-
-config.window_background_opacity = 0.75
-config.macos_window_background_blur = 60
+config.macos_window_background_blur = 10
 
 config.font = wezterm.font("FiraCode Nerd Font")
 config.font_size = 16
