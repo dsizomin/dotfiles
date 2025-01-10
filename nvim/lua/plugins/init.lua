@@ -443,12 +443,22 @@ return {
     end,
   },
   {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end,
+  },
+  {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = {
       {
         "giuxtaposition/blink-cmp-copilot",
-        { "L3MON4D3/LuaSnip", version = "v2.*" },
+        "L3MON4D3/LuaSnip",
         "onsails/lspkind.nvim",
       },
     },
@@ -509,7 +519,7 @@ return {
         list = {
           selection = {
             preselect = false,
-            auto_insert = false,
+            -- auto_insert = false,
           },
         },
         ghost_text = {
@@ -606,9 +616,7 @@ return {
   {
     "danymat/neogen",
     dependencies = {
-      {
-        { "L3MON4D3/LuaSnip", version = "v2.*" },
-      },
+      "L3MON4D3/LuaSnip",
     },
     config = function()
       require("neogen").setup { snippet_engine = "luasnip" }
