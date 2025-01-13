@@ -674,9 +674,16 @@ return {
     end,
   },
   {
-    "norcalli/nvim-colorizer.lua",
+    "uga-rosa/ccc.nvim",
+    keys = {
+      { "<leader>cp", "<cmd>CccPick<CR>", desc = "Color picker" },
+    },
     config = function()
-      require("colorizer").setup()
+      require("ccc").setup {
+        highlighter = {
+          auto_enable = true,
+        },
+      }
     end,
   },
   {
