@@ -416,7 +416,7 @@ return {
               variableTypes = { enabled = false },
             },
             tsserver = {
-              maxTsServerMemory = 16384,
+              maxTsServerMemory = isWebCode and 8192 or 2048,
             },
           },
         },
@@ -440,6 +440,18 @@ return {
       }
 
       lspconfig.graphql.setup {
+        on_attach = on_attach,
+        on_init = on_init,
+        capabilities = capabilities,
+      }
+
+      lspconfig.dockerls.setup {
+        on_attach = on_attach,
+        on_init = on_init,
+        capabilities = capabilities,
+      }
+
+      lspconfig.docker_compose_language_service.setup {
         on_attach = on_attach,
         on_init = on_init,
         capabilities = capabilities,
