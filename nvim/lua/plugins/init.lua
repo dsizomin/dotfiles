@@ -283,20 +283,18 @@ return {
       },
     },
   },
-
-  {
-    "williamboman/mason.nvim",
-    cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
-    config = function()
-      require("mason").setup {}
-    end,
-  },
-
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "saghen/blink.cmp" },
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "saghen/blink.cmp",
+    },
     -- event = "User FilePost",
     config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup()
+
       local x = vim.diagnostic.severity
 
       vim.diagnostic.config {
@@ -354,109 +352,105 @@ return {
       local lsputils = require "lspconfig.util"
       local root_dir = lsputils.root_pattern ".yarn"(cwd)
 
-      -- lua
-      lspconfig.lua_ls.setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        on_init = on_init,
-
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = {
-                vim.fn.expand "$VIMRUNTIME/lua",
-                vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
-                vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
-                vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
-                "${3rd}/luv/library",
-              },
-              maxPreload = 100000,
-              preloadFileSize = 10000,
-            },
-          },
-        },
-      }
-
-      lspconfig.vtsls.setup {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-        init_options = {
-          hostInfo = "neovim",
-        },
-        settings = {
-          complete_function_calls = true,
-          vtsls = {
-            enableMoveToFileCodeAction = true,
-            typescript = isWebCode and {
-              globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
-            } or {},
-            experimental = {
-              maxInlayHintLength = 30,
-              completion = {
-                enableServerSideFuzzyMatch = true,
-              },
-            },
-          },
-          typescript = {
-            updateImportsOnFileMove = { enabled = "always" },
-            suggest = {
-              completeFunctionCalls = true,
-              autoImports = not isWebCode,
-            },
-            inlayHints = {
-              enumMemberValues = { enabled = true },
-              functionLikeReturnTypes = { enabled = true },
-              parameterNames = { enabled = "literals" },
-              parameterTypes = { enabled = true },
-              propertyDeclarationTypes = { enabled = true },
-              variableTypes = { enabled = false },
-            },
-            tsserver = {
-              maxTsServerMemory = isWebCode and 8192 or 2048,
-            },
-          },
-        },
-      }
-
-      -- eslint
-      lspconfig.eslint.setup {
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            command = "EslintFixAll",
-          })
-          on_attach(client, bufnr)
+      require("mason-lspconfig").setup_handlers {
+        function(server_name) -- default handler (optional)
+          lspconfig[server_name].setup {
+            on_attach = on_attach,
+            on_init = on_init,
+            capabilities = capabilities,
+          }
         end,
-        on_init = on_init,
-        capabilities = capabilities,
-        workingDirectory = { mode = "auto" },
-        settings = isWebCode and {
-          nodePath = root_dir .. "/.yarn/sdks",
-        } or {},
-      }
 
-      lspconfig.graphql.setup {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-      }
+        ["lua_ls"] = function()
+          lspconfig.lua_ls.setup {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            on_init = on_init,
 
-      lspconfig.dockerls.setup {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-      }
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" },
+                },
+                workspace = {
+                  library = {
+                    vim.fn.expand "$VIMRUNTIME/lua",
+                    vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
+                    vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
+                    vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+                    "${3rd}/luv/library",
+                  },
+                  maxPreload = 100000,
+                  preloadFileSize = 10000,
+                },
+              },
+            },
+          }
+        end,
 
-      lspconfig.docker_compose_language_service.setup {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
+        ["vtsls"] = function()
+          lspconfig.vtsls.setup {
+            on_attach = on_attach,
+            on_init = on_init,
+            capabilities = capabilities,
+            init_options = {
+              hostInfo = "neovim",
+            },
+            settings = {
+              complete_function_calls = true,
+              vtsls = {
+                enableMoveToFileCodeAction = true,
+                typescript = isWebCode and {
+                  globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
+                } or {},
+                experimental = {
+                  maxInlayHintLength = 30,
+                  completion = {
+                    enableServerSideFuzzyMatch = true,
+                  },
+                },
+              },
+              typescript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = {
+                  completeFunctionCalls = true,
+                  autoImports = not isWebCode,
+                },
+                inlayHints = {
+                  enumMemberValues = { enabled = true },
+                  functionLikeReturnTypes = { enabled = true },
+                  parameterNames = { enabled = "literals" },
+                  parameterTypes = { enabled = true },
+                  propertyDeclarationTypes = { enabled = true },
+                  variableTypes = { enabled = false },
+                },
+                tsserver = {
+                  maxTsServerMemory = isWebCode and 8192 or 2048,
+                },
+              },
+            },
+          }
+        end,
+
+        ["eslint"] = function()
+          lspconfig.eslint.setup {
+            on_attach = function(client, bufnr)
+              vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                command = "EslintFixAll",
+              })
+              on_attach(client, bufnr)
+            end,
+            on_init = on_init,
+            capabilities = capabilities,
+            workingDirectory = { mode = "auto" },
+            settings = isWebCode and {
+              nodePath = root_dir .. "/.yarn/sdks",
+            } or {},
+          }
+        end,
       }
-    end,
+     end,
   },
   {
     "L3MON4D3/LuaSnip",
