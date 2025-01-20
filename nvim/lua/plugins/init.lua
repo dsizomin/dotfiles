@@ -152,7 +152,6 @@ return {
     "nvim-tree/nvim-web-devicons",
     lazy = false,
   },
-
   {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -167,7 +166,6 @@ return {
       }
     end,
   },
-
   {
     "nvim-telescope/telescope-file-browser.nvim",
     lazy = false,
@@ -190,7 +188,6 @@ return {
       }
     end,
   },
-
   {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {},
@@ -347,7 +344,10 @@ return {
       end
 
       local capabilities = require("blink.cmp").get_lsp_capabilities()
-
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
       local lspconfig = require "lspconfig"
       local lsputils = require "lspconfig.util"
       local root_dir = lsputils.root_pattern ".yarn"(cwd)
@@ -450,7 +450,7 @@ return {
           }
         end,
       }
-     end,
+    end,
   },
   {
     "L3MON4D3/LuaSnip",
@@ -711,5 +711,29 @@ return {
         },
       }
     end,
+  },
+  {
+    "kevinhwang91/nvim-ufo",
+    lazy = false,
+    dependencies = "kevinhwang91/promise-async",
+    config = function()
+      require("ufo").setup {}
+    end,
+    keys = {
+      {
+        "zR",
+        function()
+          require("ufo").openAllFolds()
+        end,
+        "Open all folds (UFO)",
+      },
+      {
+        "zM",
+        function()
+          require("ufo").closeAllFolds()
+        end,
+        "Close all folds (UFO)",
+      },
+    },
   },
 }
