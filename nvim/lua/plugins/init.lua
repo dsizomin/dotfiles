@@ -157,8 +157,10 @@ return {
   },
   {
     "folke/snacks.nvim",
+    lazy = false,
     opts = {
       bigfile = {},
+      bufdelete = {},
       lazygit = {},
       picker = {},
       image = {},
@@ -192,7 +194,7 @@ return {
         desc = "Buffers",
       },
       {
-        "<leader>/",
+        "<leader>fw",
         function()
           Snacks.picker.grep()
         end,
@@ -541,6 +543,13 @@ return {
         end,
         desc = "LSP Workspace Symbols",
       },
+      {
+        "<leader>bw",
+        function()
+          Snacks.bufdelete()
+        end,
+        desc = "Delete current buffer",
+      }
     },
   },
   {
