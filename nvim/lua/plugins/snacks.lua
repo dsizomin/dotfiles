@@ -14,4 +14,14 @@ return {
       },
     },
   },
+  keys = {
+    { "<leader>/", false },
+    {
+      "<leader>fw",
+      function()
+        Snacks.picker.grep()
+      end,
+      desc = "Grep",
+    },
+  },
 }

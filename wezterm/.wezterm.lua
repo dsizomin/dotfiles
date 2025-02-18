@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 -- config.colors = require("tokyonight.tokyonight_night")
-config.color_scheme = "Tokyo Night Storm"
+config.color_scheme = "Tokyo Night Moon"
 -- config.colors.background = "black"
 -- config.window_background_opacity = 0.85
 -- config.window_background_gradient = {
