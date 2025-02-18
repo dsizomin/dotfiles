@@ -24,6 +24,9 @@ return {
       },
 
       vtsls = {
+        init_options = {
+          hostInfo = "neovim",
+        },
         settings = {
           complete_function_calls = true,
           vtsls = {
