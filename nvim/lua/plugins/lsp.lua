@@ -1,5 +1,7 @@
 local cwd = vim.fn.getcwd()
 local isWebCode = cwd:match("web%-code")
+local lsputils = require("lspconfig.util")
+local root_dir = lsputils.root_pattern(".yarn")(cwd)
 
 return {
   "neovim/nvim-lspconfig",
