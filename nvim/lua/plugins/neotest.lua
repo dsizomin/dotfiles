@@ -1,6 +1,3 @@
-local cwd = vim.fn.getcwd()
-local isWebCode = cwd:match("web%-code")
-
 return {
   "nvim-neotest/neotest",
   dependencies = {
@@ -13,7 +10,7 @@ return {
   config = function()
     require("neotest").setup({
       adapters = {
-        require("neotest-jest")(isWebCode and {
+        require("neotest-jest")(vim.g.is_web_code and {
           jestCommand = "jz test",
         } or {}),
       },

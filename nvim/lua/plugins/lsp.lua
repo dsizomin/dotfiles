@@ -1,7 +1,6 @@
-local cwd = vim.fn.getcwd()
-local isWebCode = cwd:match("web%-code")
 local lsputils = require("lspconfig.util")
-local root_dir = lsputils.root_pattern(".yarn")(cwd)
+local cwd = vim.fn.getcwd()
+local root_dir = lsputils.root_pattern(".git")(cwd)
 
 return {
   "neovim/nvim-lspconfig",
@@ -18,7 +17,7 @@ return {
 
       eslint = {
         workingDirectory = { mode = "auto" },
-        settings = isWebCode and {
+        settings = vim.g.is_web_code and {
           nodePath = root_dir .. "/.yarn/sdks",
         } or {},
       },
@@ -31,7 +30,7 @@ return {
           complete_function_calls = true,
           vtsls = {
             enableMoveToFileCodeAction = true,
-            typescript = isWebCode and {
+            typescript = vim.g.is_web_code and {
               globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
             } or {},
             experimental = {
@@ -45,7 +44,7 @@ return {
             updateImportsOnFileMove = { enabled = "always" },
             suggest = {
               completeFunctionCalls = true,
-              autoImports = not isWebCode,
+              autoImports = not vim.g.is_web_code,
             },
             inlayHints = {
               enumMemberValues = { enabled = true },
@@ -56,7 +55,7 @@ return {
               variableTypes = { enabled = false },
             },
             tsserver = {
-              maxTsServerMemory = isWebCode and 8192 or 2048,
+              maxTsServerMemory = vim.g.is_web_code and 8192 or 2048,
             },
           },
         },
