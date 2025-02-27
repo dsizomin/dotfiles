@@ -55,7 +55,7 @@ return {
               variableTypes = { enabled = false },
             },
             tsserver = {
-              maxTsServerMemory = vim.g.is_web_code and 8192 or 2048,
+              maxTsServerMemory = vim.g.is_web_code and 10240 or 2048,
             },
           },
         },
@@ -65,6 +65,13 @@ return {
     -- return true if you don't want this server to be setup with lspconfig
     ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
     setup = {
+      vtsls = function(_, _opts)
+        require("lazyvim.util").lsp.on_attach(function(client)
+          if client.name == "vtsls" then
+            client.server_capabilities.documentFormattingProvider = false
+          end
+        end)
+      end,
       -- example to setup with typescript.nvim
       -- tsserver = function(_, opts)
       -- require("typescript").setup({ server = opts })
