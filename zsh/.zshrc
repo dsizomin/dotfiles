@@ -9,7 +9,7 @@ ZSH_DISABLE_COMPFIX="true"
 
 source ~/antigen.zsh
 
-source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+# source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.sh
 
 source ~/.p10k.zsh
 
