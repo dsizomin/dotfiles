@@ -18,15 +18,15 @@ config.color_scheme = "Tokyo Night Moon"
 -- 	},
 -- }
 config.window_padding = {
-	left = 0,
-	right = 0,
-	top = 0,
-	bottom = 0,
+	left = 2,
+	right = 2,
+	top = 2,
+	bottom = 2,
 }
 -- config.macos_window_background_blur = 10
 
 config.font = wezterm.font("FiraCode Nerd Font")
-config.font_size = 15
+config.font_size = 16.5
 
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
