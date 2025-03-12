@@ -68,7 +68,7 @@ return {
                     icon = dev_icon
                   end
                 elseif ctx.kind == "Copilot" then
-                  icon = ""
+                  icon = ""
                 else
                   icon = lspkind.symbolic(ctx.kind, {
                     mode = "symbol",
