@@ -35,7 +35,9 @@ return {
     },
     cmdline = {
       enabled = true,
-      keymap = { preset = "cmdline" },
+      keymap = {
+        ["<Tab>"] = { "show", "accept" },
+      },
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
@@ -49,7 +51,11 @@ return {
         return {}
       end,
       completion = {
-        menu = { auto_show = true },
+        menu = {
+          auto_show = function(ctx)
+            return vim.fn.getcmdtype() == ":"
+          end,
+        },
       },
     },
     completion = {
