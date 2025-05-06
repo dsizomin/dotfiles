@@ -16,9 +16,12 @@ return {
       bashls = {},
 
       eslint = {
-        workingDirectory = { mode = "auto" },
         settings = vim.g.is_web_code and {
+          workingDirectory = { mode = "auto" },
           nodePath = root_dir .. "/.yarn/sdks",
+          experimental = {
+            useFlatConfig = true,
+          },
         } or {},
       },
 
@@ -46,14 +49,14 @@ return {
               completeFunctionCalls = true,
               autoImports = not vim.g.is_web_code,
             },
-            inlayHints = {
+            inlayHints = (not vim.g.is_web_code) and {
               enumMemberValues = { enabled = true },
               functionLikeReturnTypes = { enabled = true },
               parameterNames = { enabled = "literals" },
               parameterTypes = { enabled = true },
               propertyDeclarationTypes = { enabled = true },
               variableTypes = { enabled = false },
-            },
+            } or {},
             tsserver = {
               maxTsServerMemory = vim.g.is_web_code and 10240 or 2048,
             },
