@@ -1,37 +1,28 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 ZSH_DISABLE_COMPFIX="true"
 
-source ~/antigen.zsh
+# Clone antidote if necessary.
+[[ -e ${ZDOTDIR:-~}/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote
 
-# source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.sh
+# Source antidote.
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
-source ~/.p10k.zsh
+# Initialize antidote's dynamic mode, which changes `antidote bundle`
+# from static mode.
+source <(antidote init)
 
-antigen use oh-my-zsh
+# Bundle Fish-like auto suggestions just like you would with antigen.
+antidote bundle zsh-users/zsh-autosuggestions
 
-antigen bundle git
+# Bundle extra zsh completions too.
+antidote bundle zsh-users/zsh-completions
 
-antigen bundle zsh-users/zsh-autosuggestions
+antidote bundle zsh-users/zsh-syntax-highlighting
 
-antigen bundle zsh-users/zsh-syntax-highlighting
+antidote bundle zsh-users/zsh-history-substring-search
 
-antigen bundle zsh-users/zsh-history-substring-search
-
-# antigen bundle thefuck
-
-# antigen bundle mafredri/zsh-async
-
-antigen theme romkatv/powerlevel10k
-
-antigen apply
-
-# alias cls='colorls'
+# Themes are treated just like any other plugin
+antidote bundle sindresorhus/pure
 
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
