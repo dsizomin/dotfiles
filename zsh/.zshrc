@@ -17,7 +17,7 @@ antidote bundle zsh-users/zsh-autosuggestions
 # Bundle extra zsh completions too.
 antidote bundle zsh-users/zsh-completions
 
-antidote bundle zsh-users/zsh-syntax-highlighting
+antidote bundle zdharma-continuum/fast-syntax-highlighting kind:defer
 
 antidote bundle zsh-users/zsh-history-substring-search
 
