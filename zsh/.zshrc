@@ -24,6 +24,11 @@ antidote bundle zsh-users/zsh-history-substring-search
 # Themes are treated just like any other plugin
 antidote bundle sindresorhus/pure
 
+bindkey '\eOB' history-substring-search-down
+bindkey '\eOA' history-substring-search-up
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
 
 export NVM_DIR="$HOME/.nvm"
