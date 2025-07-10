@@ -5,12 +5,13 @@ return {
       "giuxtaposition/blink-cmp-copilot",
       "onsails/lspkind.nvim",
       "nvim-tree/nvim-web-devicons",
+      "Kaiser-Yang/blink-cmp-avante",
     },
   },
   opts = {
     keymap = { preset = "enter" },
     sources = {
-      default = { "lsp", "path", "snippets", "buffer", "copilot" },
+      default = { "avante", "lsp", "path", "snippets", "buffer", "copilot" },
       providers = {
         lsp = {
           score_offset = 0, -- Boost/penalize the score of the items
@@ -31,13 +32,17 @@ return {
             return items
           end,
         },
+        avante = {
+          module = "blink-cmp-avante",
+          name = "Avante",
+          opts = {
+            -- options for blink-cmp-avante
+          },
+        },
       },
     },
     cmdline = {
       enabled = true,
-      keymap = {
-        ["<Tab>"] = { "show", "accept" },
-      },
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
@@ -75,6 +80,8 @@ return {
                   end
                 elseif ctx.kind == "Copilot" then
                   icon = ""
+                elseif ctx.kind == "Avante" then
+                  icon = "󰖷"
                 else
                   icon = lspkind.symbolic(ctx.kind, {
                     mode = "symbol",
