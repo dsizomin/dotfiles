@@ -43,6 +43,9 @@ return {
     },
     cmdline = {
       enabled = true,
+      keymap = {
+        ["<Tab>"] = { "show", "accept" },
+      },
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
