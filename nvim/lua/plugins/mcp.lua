@@ -45,6 +45,16 @@ return {
       input = {
         provider = "snacks", -- Avoid native provider issues
       },
+      rules = {
+        -- project_dir = ".avante/rules", -- relative to project root, can also be an absolute path
+        -- global_dir = "~/.config/avante/rules", -- absolute path
+        global_dir = vim.g.is_web_code and "~/web-code/.cursor/rules",
+      },
+      windows = {
+        input = {
+          height = 24,
+        },
+      },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
