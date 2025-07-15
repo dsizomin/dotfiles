@@ -1,5 +1,6 @@
 return {
   "saghen/blink.cmp",
+  version = "1.4.1",
   dependencies = {
     {
       "giuxtaposition/blink-cmp-copilot",
@@ -43,9 +44,6 @@ return {
     },
     cmdline = {
       enabled = true,
-      keymap = {
-        ["<Tab>"] = { "show", "accept" },
-      },
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
