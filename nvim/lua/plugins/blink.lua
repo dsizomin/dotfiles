@@ -44,6 +44,11 @@ return {
     },
     cmdline = {
       enabled = true,
+      keymap = {
+        preset = "inherit",
+        ["<Tab>"] = { "accept" },
+        ["<CR>"] = { "accept_and_enter", "fallback" },
+      },
       sources = function()
         local type = vim.fn.getcmdtype()
         -- Search forward and backward
