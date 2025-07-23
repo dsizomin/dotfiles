@@ -121,3 +121,5 @@ setopt prompt_subst           # expand parameters in prompt variables
 unsetopt beep                 # be quiet!
 setopt combining_chars        # combine zero-length punctuation characters (accents) with the base character
 
+autoload -Uz compinit
+compinit
