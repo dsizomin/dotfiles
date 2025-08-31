@@ -8,13 +8,6 @@ return {
     opts = {
       ---@type lspconfig.options
       servers = {
-        -- tsserver will be automatically installed with mason and loaded with lspconfig
-        -- tsserver = {},
-        marksman = {},
-        graphql = {},
-        dockerls = {},
-        docker_compose_language_service = {},
-        bashls = {},
 
         eslint = {
           settings = vim.g.is_web_code and {

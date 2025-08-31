@@ -10,6 +10,9 @@ return {
     },
   },
   opts = {
+    fuzzy = {
+      implementation = "prefer_rust",
+    },
     keymap = { preset = "enter" },
     sources = {
       default = { "avante", "lsp", "path", "snippets", "buffer", "copilot" },
