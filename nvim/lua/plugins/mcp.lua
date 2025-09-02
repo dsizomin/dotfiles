@@ -67,7 +67,8 @@ return {
       -- "stevearc/dressing.nvim", -- for input provider dressing
       "saghen/blink.cmp",
       "folke/snacks.nvim", -- for input provider snacks
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      -- "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "nvim-mini/mini.nvim",
       "zbirenbaum/copilot.lua", -- for providers='copilot'
       -- {
       --   -- support for image pasting
