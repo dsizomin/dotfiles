@@ -3,7 +3,7 @@ return {
   version = "1.*",
   dependencies = {
     {
-      "giuxtaposition/blink-cmp-copilot",
+      "fang2hou/blink-copilot",
       "onsails/lspkind.nvim",
       "nvim-mini/mini.nvim",
       "Kaiser-Yang/blink-cmp-avante",
@@ -25,6 +25,9 @@ return {
           module = "blink-cmp-copilot",
           score_offset = 100,
           async = true,
+          opts = {
+            kind_hl = "MiniIconsGrey",
+          },
         },
         avante = {
           module = "blink-cmp-avante",
@@ -49,41 +52,6 @@ return {
         end
         return {}
       end,
-    },
-    completion = {
-      menu = {
-        draw = {
-          components = {
-            kind_icon = {
-              text = function(ctx)
-                if ctx.kind == "Copilot" then
-                  return ""
-                end
-                local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
-                return kind_icon
-              end,
-              -- (optional) use highlights from mini.icons
-              highlight = function(ctx)
-                if ctx.kind == "Copilot" then
-                  return "MiniIconsGrey"
-                end
-                local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                return hl
-              end,
-            },
-            kind = {
-              -- (optional) use highlights from mini.icons
-              highlight = function(ctx)
-                if ctx.kind == "Copilot" then
-                  return "MiniIconsGrey"
-                end
-                local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-                return hl
-              end,
-            },
-          },
-        },
-      },
     },
   },
 }
