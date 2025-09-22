@@ -7,6 +7,8 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       ---@type lspconfig.options
+      ---
+      diagnostics = { virtual_text = false, virtual_lines = { current_line = true } },
       servers = {
 
         eslint = {
@@ -79,17 +81,5 @@ return {
         -- ["*"] = function(server, opts) end,
       },
     },
-  },
-  {
-    "maan2003/lsp_lines.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
-    config = function()
-      require("lsp_lines").setup()
-      -- Enable lsp_lines globally
-      vim.diagnostic.config({
-        virtual_lines = true,
-        virtual_text = false,
-      })
-    end,
   },
 }
