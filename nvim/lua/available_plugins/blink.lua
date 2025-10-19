@@ -10,9 +10,6 @@ return {
     },
   },
   opts = {
-    fuzzy = {
-      implementation = "prefer_rust",
-    },
     sources = {
       default = { "avante", "lsp", "path", "snippets", "buffer", "copilot" },
       providers = {
