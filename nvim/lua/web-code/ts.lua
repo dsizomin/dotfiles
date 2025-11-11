@@ -64,11 +64,9 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        vtsls = function(_, _opts)
-          require("lazyvim.util").lsp.on_attach(function(client)
-            if client.name == "vtsls" then
-              client.server_capabilities.documentFormattingProvider = false
-            end
+        vtsls = function(_opts)
+          Snacks.util.lsp.on({ name = "vtsls" }, function(_, client)
+            client.server_capabilities.documentFormattingProvider = false
           end)
         end,
         -- example to setup with typescript.nvim
