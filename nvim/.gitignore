@@ -6,3 +6,6 @@ debug
 foo.*
 *.log
 data
+
+# Correct plugin directory has to be symlinked manually
+lua/plugins
