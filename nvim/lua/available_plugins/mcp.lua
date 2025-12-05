@@ -23,7 +23,7 @@ return {
       providers = {
         copilot = {
           endpoint = "https://api.githubcopilot.com",
-          model = "claude-sonnet-4",
+          model = "claude-sonnet-4.5",
         },
       },
       -- system_prompt as function ensures LLM always has latest MCP server state
