@@ -1,1 +1,0 @@
-../available_plugins/copilot.lua
