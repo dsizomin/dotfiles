@@ -24,7 +24,7 @@ return {
         copilot = {
           endpoint = "https://api.githubcopilot.com",
           model = "claude-opus-4.6",
-          disable_tools = { "bash", "python", "move_path", "delete_path", "bash" },
+          disable_tools = { "bash", "python" },
         },
       },
       -- system_prompt as function ensures LLM always has latest MCP server state
