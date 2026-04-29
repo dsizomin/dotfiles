@@ -2,6 +2,8 @@ local lsputils = require("lspconfig.util")
 local cwd = vim.fn.getcwd()
 local root_dir = lsputils.root_pattern(".git")(cwd)
 
+-- local test =
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -21,38 +23,54 @@ return {
           } or {},
         },
 
-        vtsls = {
-          init_options = {
-            hostInfo = "neovim",
-          },
+        tsgo = {
+          -- handlers = {
+          --   ["textDocument/definition"] = function(_, method, result)
+          --     -- local patched_paths = vim.tbl_map(function(entry)
+          --     --   local uri = entry.uri
+          --     --   local is_zip = uri:match(".zip/")
+          --     --   if is_zip ~= nil then
+          --     --     uri = uri:gsub("^(file://)", "%1zipfile:"):gsub(".zip/", ".zip::")
+          --     --   end
+          --     --
+          --     --   return vim.tbl_extend("force", entry, { uri = uri })
+          --     -- end, result)
+          --     -- runtime/lua/vim/lsp/handlers.lua
+          --     -- location_handler(_, method, patched_paths)
+          --     -- vim.lsp.handlers["textDocument/definition"](_, method, patched_paths)
+          --   end,
+          -- },
+          -- init_options = {
+          --   hostInfo = "neovim",
+          -- },
           settings = {
-            complete_function_calls = true,
-            vtsls = {
-              enableMoveToFileCodeAction = true,
-              typescript = vim.g.is_web_code and {
-                globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
-              } or {},
-              experimental = {
-                maxInlayHintLength = 30,
-                completion = {
-                  enableServerSideFuzzyMatch = true,
-                },
-              },
-            },
+            -- complete_function_calls = true,
+            -- vtsls = {
+            --   enableMoveToFileCodeAction = true,
+            --   -- typescript = vim.g.is_web_code and {
+            --   --   globalTsdk = root_dir .. "/.yarn/sdks/typescript/lib",
+            --   -- } or {},
+            --   experimental = {
+            --     maxInlayHintLength = 30,
+            --     completion = {
+            --       enableServerSideFuzzyMatch = true,
+            --     },
+            --   },
+            -- },
             typescript = {
-              updateImportsOnFileMove = { enabled = "always" },
-              suggest = {
-                completeFunctionCalls = true,
-                autoImports = not vim.g.is_web_code,
-              },
-              inlayHints = (not vim.g.is_web_code) and {
+              -- updateImportsOnFileMove = { enabled = "always" },
+              -- suggest = {
+              -- completeFunctionCalls = true,
+              -- autoImports = not vim.g.is_web_code,
+              -- },
+              inlayHints = {
                 enumMemberValues = { enabled = true },
                 functionLikeReturnTypes = { enabled = true },
                 parameterNames = { enabled = "literals" },
-                parameterTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
+                parameterTypes = { enabled = false },
+                propertyDeclarationTypes = { enabled = false },
                 variableTypes = { enabled = false },
-              } or {},
+              },
               tsserver = {
                 maxTsServerMemory = vim.g.is_web_code and 10240 or 2048,
               },
@@ -64,8 +82,8 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        vtsls = function(_opts)
-          Snacks.util.lsp.on({ name = "vtsls" }, function(_, client)
+        tsgo = function(_opts)
+          Snacks.util.lsp.on({ name = "tsgo" }, function(_, client)
             client.server_capabilities.documentFormattingProvider = false
           end)
         end,
