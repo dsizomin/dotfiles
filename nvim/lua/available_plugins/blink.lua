@@ -6,12 +6,17 @@ return {
       "fang2hou/blink-copilot",
       "onsails/lspkind.nvim",
       "nvim-mini/mini.nvim",
-      "Kaiser-Yang/blink-cmp-avante",
     },
   },
   opts = {
     sources = {
-      default = { "avante", "lsp", "path", "snippets", "buffer", "copilot" },
+      default = {
+        "lsp",
+        "path",
+        "snippets",
+        "buffer",
+        "copilot",
+      },
       providers = {
         lsp = {
           score_offset = 0, -- Boost/penalize the score of the items
@@ -24,13 +29,6 @@ return {
           async = true,
           opts = {
             kind_hl = "MiniIconsGrey",
-          },
-        },
-        avante = {
-          module = "blink-cmp-avante",
-          name = "Avante",
-          opts = {
-            -- options for blink-cmp-avante
           },
         },
       },
